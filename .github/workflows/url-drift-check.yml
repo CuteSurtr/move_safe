@@ -1,0 +1,118 @@
+name: URL drift check
+
+on:
+  schedule:
+    # Mondays at 14:00 UTC. Catches link rot on a weekly cadence without
+    # spamming the agency portals we depend on.
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  head-check:
+    name: HEAD-check official URLs
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract URLs from seed data and HEAD-check
+        run: |
+          set -uo pipefail
+          python3 <<'PY'
+          import re, subprocess, pathlib, sys, json
+
+          # Pull every URL literal from the two seed-data files. We don't
+          # check JSON research artifacts here; the live app reads only
+          # States.swift and Sources.swift.
+          srcs = [
+              pathlib.Path("ios/Sources/MoveSafe/Data/States.swift"),
+              pathlib.Path("ios/Sources/MoveSafe/Data/Sources.swift"),
+          ]
+          urls: dict[str, list[str]] = {}
+          pattern = re.compile(r'"(https?://[^"\s]+)"')
+          for s in srcs:
+              for url in pattern.findall(s.read_text()):
+                  urls.setdefault(url, []).append(s.name)
+
+          print(f"Found {len(urls)} unique URLs across {len(srcs)} seed files.")
+
+          # Cloudflare and similar anti-bot deployments are known to return
+          # 403 to non-browser HEAD requests on long-standing .gov domains.
+          # We treat those as warnings, not failures.
+          KNOWN_ANTIBOT_HOSTS = {
+              "www.mass.gov", "mass.gov",
+              "www.vermont.gov", "vermont.gov",
+              "www.azbn.gov", "azbn.gov",
+              "www.az.gov", "az.gov",
+              "www.ilsos.gov", "ilsos.gov",
+              "www.suny.edu", "suny.edu",
+              "www.isac.org", "isac.org",
+              "www.flbog.edu", "flbog.edu",
+              "portal.ehawaii.gov",
+              "attorneygenerallynnfitch.com",
+              "www.dot.state.wy.us",
+          }
+
+          failures: list[tuple[str, str, list[str]]] = []   # url, info, files
+          warnings: list[tuple[str, str, list[str]]] = []
+
+          for url, files in sorted(urls.items()):
+              host = re.sub(r'^https?://([^/]+).*$', r'\1', url)
+              try:
+                  cp = subprocess.run(
+                      [
+                          "curl", "-sIL",
+                          "-A", "Mozilla/5.0 (compatible; MoveSafe-URL-Drift-Check)",
+                          "-m", "20",
+                          "-o", "/dev/null",
+                          "-w", "%{http_code}|%{url_effective}",
+                          url,
+                      ],
+                      capture_output=True, text=True, timeout=30,
+                  )
+                  out = (cp.stdout or "").strip()
+                  status, _, effective = out.partition("|")
+                  if status in ("200", "301", "302", "307", "308"):
+                      continue
+                  if status == "403" and host in KNOWN_ANTIBOT_HOSTS:
+                      warnings.append((url, f"403 (known anti-bot host {host})", files))
+                      continue
+                  if status == "000":
+                      failures.append((url, "no response (DNS / timeout / TLS)", files))
+                  else:
+                      failures.append((url, f"HTTP {status}", files))
+              except Exception as e:
+                  failures.append((url, f"check raised: {e}", files))
+
+          print(f"\nWarnings: {len(warnings)}")
+          for url, reason, files in warnings:
+              print(f"  ::warning::{url}  [{reason}]  in {','.join(sorted(set(files)))}")
+
+          print(f"\nFailures: {len(failures)}")
+          for url, reason, files in failures:
+              print(f"  ::error::{url}  [{reason}]  in {','.join(sorted(set(files)))}")
+
+          # Write a tiny JSON summary that future iterations can compare against.
+          summary = {
+              "total_urls": len(urls),
+              "warnings": [{"url": u, "reason": r, "files": sorted(set(f))} for u, r, f in warnings],
+              "failures": [{"url": u, "reason": r, "files": sorted(set(f))} for u, r, f in failures],
+          }
+          pathlib.Path("url-drift-summary.json").write_text(json.dumps(summary, indent=2))
+          print("\nSummary written to url-drift-summary.json")
+
+          # Exit nonzero only on real failures, not warnings.
+          if failures:
+              sys.exit(1)
+          PY
+
+      - name: Upload drift summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: url-drift-summary
+          path: url-drift-summary.json
+          retention-days: 90

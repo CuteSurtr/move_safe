@@ -55,6 +55,46 @@ jobs:
           echo "Built: $APP"
           du -sh "$APP"
 
+  test:
+    name: Unit tests (engine)
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: xcodegen generate
+
+      - name: Pick a concrete iPhone simulator
+        id: sim
+        run: |
+          # The macos-15 image rotates the default simulator name. Pick whatever
+          # iPhone is installed so the test step does not break on image refresh.
+          DEST=$(xcrun simctl list devices available | grep -E 'iPhone [0-9]+ ' | head -1 | sed -E 's/^[[:space:]]+([^ ]+ [^ ]+).*/\1/')
+          if [ -z "$DEST" ]; then
+            DEST=$(xcrun simctl list devices available | grep -E 'iPhone' | head -1 | sed -E 's/^[[:space:]]+([^(]+) \(.*$/\1/' | sed 's/[[:space:]]*$//')
+          fi
+          echo "Picked: $DEST"
+          echo "name=$DEST" >> "$GITHUB_OUTPUT"
+
+      - name: Run tests
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project MoveSafe.xcodeproj \
+            -scheme MoveSafe \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,name=${{ steps.sim.outputs.name }},OS=latest" \
+            -skipPackagePluginValidation \
+            -skipMacroValidation \
+            CODE_SIGNING_ALLOWED=NO \
+            test
+
   em-dash-lint:
     name: Em-dash lint
     runs-on: ubuntu-latest
@@ -122,21 +162,38 @@ jobs:
 
           ROOT = pathlib.Path('ios/Sources/MoveSafe/Data')
 
-          def ids(path: pathlib.Path, prefix: str) -> set[str]:
+          def all_ids(path: pathlib.Path) -> set[str]:
+              # Every Source / Category / Purpose declaration uses `id: "..."`
+              # as its first field. Sources.swift also accepts an `id` slot
+              # inside `StateUrlBinding(...)`, but that takes an enum literal
+              # (`.destination` etc.) not a string, so the regex naturally
+              # ignores it.
               text = path.read_text()
-              return set(re.findall(rf'id:\s*"({re.escape(prefix)}[^"]+)"', text))
+              return set(re.findall(r'id:\s*"([^"]+)"', text))
 
-          defined_categories = ids(ROOT / 'Categories.swift',    'cat-')
-          defined_purposes   = ids(ROOT / 'Purposes.swift',       'purpose-')
-          defined_sources    = ids(ROOT / 'Sources.swift',        'src-')
+          defined_categories = all_ids(ROOT / 'Categories.swift')
+          defined_purposes   = all_ids(ROOT / 'Purposes.swift')
+          defined_sources    = all_ids(ROOT / 'Sources.swift')
 
           items_text = (ROOT / 'ChecklistItems.swift').read_text()
-          ref_categories = set(re.findall(r'categoryId:\s*"([^"]+)"',    items_text))
-          # Anything starting with "purpose-" or "src-" inside ChecklistItems.swift
-          # is a reference to a Purpose / Source. Items aren't created here so
-          # this won't pick up their own ids.
-          ref_purposes   = set(re.findall(r'"(purpose-[^"]+)"', items_text))
-          ref_sources    = set(re.findall(r'"(src-[^"]+)"',     items_text))
+
+          # Build the set of item IDs so we don't false-positive on the item's
+          # own `id: "..."` line when scanning string literals.
+          item_ids = set(re.findall(r'^\s*id:\s*"([^"]+)"', items_text, re.MULTILINE))
+
+          # categoryId is always a single string literal.
+          ref_categories = set(re.findall(r'categoryId:\s*"([^"]+)"', items_text))
+
+          # appliesToPurposes and sourceIds are array literals. Pull each block
+          # and extract the string literals inside.
+          def refs_inside(field: str) -> set[str]:
+              out: set[str] = set()
+              for m in re.finditer(rf'{field}:\s*\[([^\]]*)\]', items_text, re.DOTALL):
+                  out.update(re.findall(r'"([^"]+)"', m.group(1)))
+              return out
+
+          ref_purposes = refs_inside('appliesToPurposes')
+          ref_sources  = refs_inside('sourceIds')
 
           missing_categories = ref_categories - defined_categories
           missing_purposes   = ref_purposes   - defined_purposes
@@ -150,14 +207,14 @@ jobs:
           if missing_sources:
               errors.append(f"Unknown source IDs in sourceIds: {sorted(missing_sources)}")
 
-          # Also report unused definitions as warnings (not failures).
           unused_categories = defined_categories - ref_categories
-          unused_sources    = defined_sources    - ref_sources
           unused_purposes   = defined_purposes   - ref_purposes
+          unused_sources    = defined_sources    - ref_sources
 
           print(f"Defined: {len(defined_categories)} categories, "
                 f"{len(defined_purposes)} purposes, "
                 f"{len(defined_sources)} sources")
+          print(f"Items declared: {len(item_ids)}")
           print(f"Referenced by items: {len(ref_categories)} categories, "
                 f"{len(ref_purposes)} purposes, "
                 f"{len(ref_sources)} sources")

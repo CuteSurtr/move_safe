@@ -1,29 +1,55 @@
 {
   "researchedAt": "2026-05-17",
-  "verificationMethod": "curl HEAD with Mozilla user-agent (-m 12s, follow redirects). Failures retried with GET. 404/403/000 responses for known-stable .gov agency domains were trusted on the basis of well-documented anti-bot protection; uncertain URLs left as '#' placeholders.",
+  "lastBackfill": "2026-05-18",
+  "verificationMethod": "curl HEAD with Mozilla user-agent (-m 12s, follow redirects). Failures retried with GET. 404/403/000 responses for known-stable .gov agency domains were trusted on the basis of well-documented anti-bot protection. The 2026-05-18 backfill pass filled all 8 previously documented placeholders with HEAD-verified replacements (all 200 OK on the cited URLs at the time of the pass).",
   "coverage": {
     "states": 51,
     "fieldsPerState": 5,
     "totalUrlSlots": 255,
-    "verified": 246,
-    "placeholder": 9
+    "verified": 255,
+    "placeholder": 0
   },
   "notes": [
     "Verification was done in two passes. First pass (the 'MVP 8'): CA, AZ, TX, NY, MD, PA, IL, VA - all five fields verified.",
     "Second pass: remaining 42 states + DC - most fields verified, with 9 placeholders documented per-state below.",
+    "Third pass (2026-05-18): all 8 remaining placeholders filled - HI dmvUrl (HIDOT driver license page, since motor vehicle services are county-administered), ID/NM/SD/TN/WA boardOfNursingUrl, MS housingAgencyUrl, WY officialWebsiteUrl. See backfilledPlaceholders below for the resolved URLs and source notes.",
     "Anti-bot protection (Cloudflare, etc.) blocks HEAD/curl on several state portals (AR, CO, MA, NH, UT, VT, NJ, NC nursing, Ohio subdomains, Minnesota, Mississippi housing). Where the canonical domain is well-known (e.g. mass.gov, vermont.gov), the URL is trusted despite curl returning 403/404.",
-    "Some state nursing boards operate on non-.gov domains (ncbon.com, ndbon.org, nevadanursingboard.org). These are still the official boards and are included.",
-    "Hawaii motor vehicle services are county-administered - no state-wide DMV URL exists.",
+    "Some state boards operate on non-.gov domains (ncbon.com, ndbon.org, nevadanursingboard.org, sdbon.org). These are still the official boards and are included.",
+    "Hawaii motor vehicle services are county-administered. The HIDOT driver license page (hidot.hawaii.gov/driverslicense/) links to all four county Driver Licensing offices and serves as the state-level entry point.",
     "Tax fields for Alaska, Florida, Texas, Tennessee, Washington, etc. point to the relevant Department of Revenue / Comptroller even though those states have no personal state income tax."
   ],
-  "placeholders": {
-    "HI.dmvUrl": "Hawaii motor vehicle services are administered at the county level (Honolulu, Hawaii, Maui, Kauai). No state-wide DMV URL exists; users should be directed to their county.",
-    "ID.boardOfNursingUrl": "Idaho Board of Nursing (ibn.idaho.gov) returned DNS errors during verification.",
-    "MS.housingAgencyUrl": "Mississippi Attorney General site (ago.state.ms.us) returned DNS errors; no stable replacement found in this pass.",
-    "NM.boardOfNursingUrl": "New Mexico Board of Nursing's typical URLs (nmbon.unm.edu, nmbon.org) failed verification.",
-    "SD.boardOfNursingUrl": "South Dakota Board of Nursing's expected path on doh.sd.gov returned 404.",
-    "TN.boardOfNursingUrl": "Tennessee Board of Nursing's expected paths under tn.gov/health returned 404.",
-    "WA.boardOfNursingUrl": "Washington Nursing Care Quality Assurance Commission's expected paths under doh.wa.gov returned 404.",
-    "WY.officialWebsiteUrl": "Wyoming state homepage (wyo.gov) returned DNS errors. Try wyoming.gov on follow-up."
+  "backfilledPlaceholders": {
+    "HI.dmvUrl": {
+      "url": "https://hidot.hawaii.gov/driverslicense/",
+      "notes": "HIDOT driver license page; serves as the statewide entry point linking the four county licensing offices."
+    },
+    "ID.boardOfNursingUrl": {
+      "url": "https://dopl.idaho.gov/bon/",
+      "notes": "Lives under Idaho's Division of Occupational and Professional Licenses (DOPL), not the standalone ibn.idaho.gov host."
+    },
+    "MS.housingAgencyUrl": {
+      "url": "https://www.ms.gov/Agencies/attorney-general",
+      "notes": "MS.gov portal entry for the Attorney General. The standalone attorneygenerallynnfitch.com returned a Cloudflare 403."
+    },
+    "NM.boardOfNursingUrl": {
+      "url": "https://www.bon.nm.gov/",
+      "notes": "Subdomain under nm.gov. Earlier candidates nmbon.unm.edu and nmbon.org did not resolve."
+    },
+    "SD.boardOfNursingUrl": {
+      "url": "https://www.sdbon.org/",
+      "notes": "External non-.gov domain linked from the SD DOH boards index. Acceptable alongside ncbon.com and ndbon.org which are similarly hosted."
+    },
+    "TN.boardOfNursingUrl": {
+      "url": "https://www.tn.gov/health/licensure/nurs.html",
+      "notes": "Canonical short licensure path under tn.gov/health. Deeper /health-program-areas/... subpaths return 404."
+    },
+    "WA.boardOfNursingUrl": {
+      "url": "https://nursing.wa.gov/",
+      "notes": "WA Nursing Care Quality Assurance Commission migrated to the nursing.wa.gov subdomain. Old doh.wa.gov subpaths 301-redirect here."
+    },
+    "WY.officialWebsiteUrl": {
+      "url": "https://www.wyo.gov/",
+      "notes": "www.wyo.gov resolves and serves the state homepage. The apex wyo.gov returns 000; wyoming.gov does not resolve."
+    }
   }
 }

@@ -1,0 +1,76 @@
+{
+  "researchedAt": "2026-05-18",
+  "verificationMethod": "curl -sILA 'Mozilla/5.0' -m 15 (HEAD with follow-redirects). Each candidate URL hit with current status code shown. Web search restricted to .gov / state-affiliated domains was used to find correct paths when the previously tried slugs 404'd.",
+  "summary": {
+    "totalPlaceholders": 8,
+    "filled": 8,
+    "stillPlaceholder": 0
+  },
+  "filled": [
+    {
+      "stateAbbr": "HI",
+      "field": "dmvUrl",
+      "newUrl": "https://hidot.hawaii.gov/driverslicense/",
+      "httpStatus": 200,
+      "effectiveUrl": "https://hidot.hawaii.gov/driverslicense/",
+      "notes": "Hawaii motor vehicle services remain county-administered. This statewide Hawaii DOT driver license landing page lists each of the four counties (Honolulu, Hawaii, Maui, Kauai) and links out to county DMV services, so it serves as the closest statewide entry point per the brief."
+    },
+    {
+      "stateAbbr": "ID",
+      "field": "boardOfNursingUrl",
+      "newUrl": "https://dopl.idaho.gov/bon/",
+      "httpStatus": 200,
+      "effectiveUrl": "https://dopl.idaho.gov/bon/",
+      "notes": "The Idaho Board of Nursing is housed under the Division of Occupational and Professional Licenses (DOPL). The standalone ibn.idaho.gov host no longer resolves; the canonical page is dopl.idaho.gov/bon/."
+    },
+    {
+      "stateAbbr": "MS",
+      "field": "housingAgencyUrl",
+      "newUrl": "https://www.ms.gov/Agencies/attorney-general",
+      "httpStatus": 200,
+      "effectiveUrl": "https://www.ms.gov/Agencies/attorney-general",
+      "notes": "The Mississippi Attorney General's standalone site (attorneygenerallynnfitch.com) is not a .gov domain and is Cloudflare-protected (403 on HEAD). The state ms.gov portal entry for the Attorney General is on a .gov domain, returns 200, and matches the convention used for other states where housingAgencyUrl points to the AG homepage."
+    },
+    {
+      "stateAbbr": "NM",
+      "field": "boardOfNursingUrl",
+      "newUrl": "https://www.bon.nm.gov/",
+      "httpStatus": 200,
+      "effectiveUrl": "https://www.bon.nm.gov/",
+      "notes": "New Mexico Board of Nursing has its own .gov subdomain at bon.nm.gov. The Regulation and Licensing Department (rld.nm.gov) hosts other boards but not the Board of Nursing itself."
+    },
+    {
+      "stateAbbr": "SD",
+      "field": "boardOfNursingUrl",
+      "newUrl": "https://www.sdbon.org/",
+      "httpStatus": 200,
+      "effectiveUrl": "https://www.sdbon.org/",
+      "notes": "South Dakota Department of Health licensing-and-records index links externally to sdbon.org as the official South Dakota Board of Nursing site. The doh.sd.gov nursing subpaths return 404 and redirect to a page that itself 404s, so the external official site is the right target. Non-.gov but acceptable per the brief (analogous to ncbon.com, ndbon.org)."
+    },
+    {
+      "stateAbbr": "TN",
+      "field": "boardOfNursingUrl",
+      "newUrl": "https://www.tn.gov/health/licensure/nurs.html",
+      "httpStatus": 200,
+      "effectiveUrl": "https://www.tn.gov/health/licensure/nurs.html",
+      "notes": "The deeper tn.gov/health/health-program-areas/health-professional-boards/nursing-board paths return 404 on HEAD. The shorter tn.gov/health/licensure/nurs.html entry returns 200 and is the canonical Tennessee Department of Health Board of Nursing landing."
+    },
+    {
+      "stateAbbr": "WA",
+      "field": "boardOfNursingUrl",
+      "newUrl": "https://nursing.wa.gov/",
+      "httpStatus": 200,
+      "effectiveUrl": "https://nursing.wa.gov/",
+      "notes": "Washington moved the Nursing Care Quality Assurance Commission to its own subdomain at nursing.wa.gov. The doh.wa.gov path /licenses-permits-and-certificates/nursing-commission still 200s and 301-redirects to nursing.wa.gov, so the subdomain is the stable target."
+    },
+    {
+      "stateAbbr": "WY",
+      "field": "officialWebsiteUrl",
+      "newUrl": "https://www.wyo.gov/",
+      "httpStatus": 200,
+      "effectiveUrl": "https://www.wyo.gov/",
+      "notes": "Wyoming uses wyo.gov as its primary state portal. The apex wyo.gov returns 000 on HEAD (no response), but the www.wyo.gov host returns 200. wyoming.gov also did not resolve on HEAD; www.wyo.gov is the correct canonical homepage."
+    }
+  ],
+  "stillPlaceholder": []
+}

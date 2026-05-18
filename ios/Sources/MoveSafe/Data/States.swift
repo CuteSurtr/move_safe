@@ -145,7 +145,7 @@ enum States {
         Row(
             name: "Hawaii", abbreviation: "HI", slug: "hawaii",
             officialWebsiteUrl: "https://portal.ehawaii.gov",
-            dmvUrl: "#",
+            dmvUrl: "https://hidot.hawaii.gov/driverslicense/",
             taxAgencyUrl: "https://tax.hawaii.gov",
             housingAgencyUrl: "https://ag.hawaii.gov",
             boardOfNursingUrl: "https://cca.hawaii.gov/pvl/boards/nursing",
@@ -157,8 +157,8 @@ enum States {
             dmvUrl: "https://itd.idaho.gov/itddmv",
             taxAgencyUrl: "https://tax.idaho.gov",
             housingAgencyUrl: "https://www.ag.idaho.gov",
-            boardOfNursingUrl: "#",
-            notes: "Idaho Board of Nursing's website (ibn.idaho.gov) returned DNS errors during verification; not included pending re-check."
+            boardOfNursingUrl: "https://dopl.idaho.gov/bon/",
+            notes: "Idaho Board of Nursing lives under the Division of Occupational and Professional Licenses (DOPL), not the standalone ibn.idaho.gov host that returned DNS errors on the original pass."
         ),
         Row(
             name: "Illinois", abbreviation: "IL", slug: "illinois",
@@ -264,7 +264,7 @@ enum States {
             officialWebsiteUrl: "https://www.ms.gov",
             dmvUrl: "https://www.driverservicebureau.dps.ms.gov",
             taxAgencyUrl: "https://www.dor.ms.gov",
-            housingAgencyUrl: "#",
+            housingAgencyUrl: "https://www.ms.gov/Agencies/attorney-general",
             boardOfNursingUrl: "https://www.msbn.ms.gov",
             notes: "Mississippi Attorney General's tenant resources page couldn't be located on a stable URL; AG site (ago.state.ms.us) returned DNS errors during verification."
         ),
@@ -328,8 +328,8 @@ enum States {
             dmvUrl: "https://www.mvd.newmexico.gov",
             taxAgencyUrl: "https://www.tax.newmexico.gov",
             housingAgencyUrl: "https://nmag.gov",
-            boardOfNursingUrl: "#",
-            notes: "New Mexico Board of Nursing's typical URLs (nmbon.unm.edu, nmbon.org) failed verification; not included pending re-check."
+            boardOfNursingUrl: "https://www.bon.nm.gov/",
+            notes: "New Mexico Board of Nursing is on its own subdomain bon.nm.gov. Earlier candidates (nmbon.unm.edu, nmbon.org) did not resolve."
         ),
         Row(
             name: "New York", abbreviation: "NY", slug: "new-york",
@@ -418,8 +418,8 @@ enum States {
             dmvUrl: "https://dps.sd.gov/driver-licensing",
             taxAgencyUrl: "https://dor.sd.gov",
             housingAgencyUrl: "https://atg.sd.gov",
-            boardOfNursingUrl: "#",
-            notes: "SD Board of Nursing's expected path on doh.sd.gov returned 404 during verification; not included pending re-check."
+            boardOfNursingUrl: "https://www.sdbon.org/",
+            notes: "South Dakota Board of Nursing operates on the external sdbon.org domain (linked from the DOH boards index). Non-.gov but official, analogous to ndbon.org and ncbon.com."
         ),
         Row(
             name: "Tennessee", abbreviation: "TN", slug: "tennessee",
@@ -427,8 +427,8 @@ enum States {
             dmvUrl: "https://www.tn.gov/safety/driver-services",
             taxAgencyUrl: "https://www.tn.gov/revenue",
             housingAgencyUrl: "https://www.tn.gov/attorneygeneral",
-            boardOfNursingUrl: "#",
-            notes: "TN Board of Nursing's expected paths under tn.gov/health returned 404 during verification; not included pending re-check."
+            boardOfNursingUrl: "https://www.tn.gov/health/licensure/nurs.html",
+            notes: "Tennessee Board of Nursing landing page lives on the short licensure path; deeper /health-program-areas/health-professional-boards/nursing-board paths return 404."
         ),
         Row(
             name: "Texas", abbreviation: "TX", slug: "texas",
@@ -472,8 +472,8 @@ enum States {
             dmvUrl: "https://www.dol.wa.gov",
             taxAgencyUrl: "https://www.dor.wa.gov",
             housingAgencyUrl: "https://www.atg.wa.gov",
-            boardOfNursingUrl: "#",
-            notes: "WA Nursing Care Quality Assurance Commission's expected paths under doh.wa.gov returned 404 during verification; not included pending re-check. Washington uses access.wa.gov as the consolidated state portal. Driver licenses under Dept of Licensing (DOL)."
+            boardOfNursingUrl: "https://nursing.wa.gov/",
+            notes: "WA Nursing Care Quality Assurance Commission now lives on the nursing.wa.gov subdomain. The old doh.wa.gov subpaths 301-redirect there. Washington uses access.wa.gov as the consolidated state portal. Driver licenses under Dept of Licensing (DOL)."
         ),
         Row(
             name: "West Virginia", abbreviation: "WV", slug: "west-virginia",
@@ -495,7 +495,7 @@ enum States {
         ),
         Row(
             name: "Wyoming", abbreviation: "WY", slug: "wyoming",
-            officialWebsiteUrl: "#",
+            officialWebsiteUrl: "https://www.wyo.gov/",
             dmvUrl: "https://www.dot.state.wy.us",
             taxAgencyUrl: "https://revenue.wyo.gov",
             housingAgencyUrl: "https://ag.wyo.gov",
