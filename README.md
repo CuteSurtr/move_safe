@@ -1,0 +1,153 @@
+# MoveSafe
+
+A source-first, state-to-state relocation checklist for the United States — available as a web app (Vite + React) and a native iOS app (SwiftUI).
+
+MoveSafe helps users understand what legal, administrative, licensing, and practical topics they should **verify** when moving across state lines, traveling, or temporarily staying in another state.
+
+> MoveSafe is a general-information checklist and source-navigation tool. It is not a legal advice product and does not determine whether any specific conduct is lawful in any particular situation.
+
+## What MoveSafe is
+
+- A relocation checklist
+- A compliance preparation tool
+- A source tracker
+- A practical state-to-state moving guide
+- A "things to verify before you move" dashboard
+
+## What MoveSafe is not
+
+- A legal chatbot
+- A lawyer replacement
+- A loophole finder
+- An enforcement avoidance tool
+- A tool that says "you are safe" or "this is definitely legal"
+
+## Product safety philosophy
+
+MoveSafe is intentionally structured to avoid drawing legal conclusions. Its core rules:
+
+1. **No legal conclusions.** Items use language like "verify", "check", "rules may vary", and "do not assume." Items never say something is legal, illegal, allowed, or prohibited.
+2. **No personalized legal advice.** The app does not take detailed facts about a user's situation and tell them whether a specific act is lawful.
+3. **Source-first design.** Every checklist item is linked to an official source (or a clearly-labeled placeholder).
+4. **Staleness warnings.** Sources are tagged with a `lastChecked` date and displayed with one of: Recently verified, Review recommended, Possibly outdated, Stale source, Placeholder source, Missing source.
+5. **High-risk categories get "Do not assume" treatment.** For firearms, controlled substances, prescription transport, and similar categories, MoveSafe does not summarize rules — it only flags the topic for separate verification.
+6. **No AI legal chatbot.** AI assistance is reserved for internal admin review tasks, not user-facing legal Q&A.
+7. **Disclaimers are visible** on every page.
+
+The full safe-copy rules are documented in [`src/lib/utils/safeCopy.ts`](src/lib/utils/safeCopy.ts) (web) and [`ios/Sources/MoveSafe/Utils/SafeCopy.swift`](ios/Sources/MoveSafe/Utils/SafeCopy.swift) (iOS). Any future content should follow them.
+
+## Repository layout
+
+```
+/                       — Vite + React web app
+  src/                  — Web source code
+  index.html, package.json, vite.config.ts, ...
+  README.md             — This file
+
+ios/                    — Native SwiftUI iOS app
+  README.md             — iOS-specific build instructions
+  project.yml           — xcodegen config (the .xcodeproj is generated, not committed)
+  Sources/MoveSafe/     — Swift source code
+  research/             — Verified-URL JSON records
+```
+
+Both implementations share the same data model, safe-copy rules, and seed data. The iOS app additionally implements:
+
+- Selection persistence to `UserDefaults` ("Continue my checklist" on Landing)
+- Per-item completion tracking with a progress bar on Results
+- iOS share sheet export of the checklist as plain text
+- iOS-native filters, navigation, and dark mode
+
+## Web app — run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open the URL Vite prints (typically `http://localhost:5173`). Click **View example checklist** to skip the form and jump straight to a populated Results screen (California → Maryland for nursing school).
+
+Other scripts:
+
+- `npm run build` — type-check and build for production
+- `npm run preview` — preview the production build
+- `npm run lint` — TypeScript type check (no emit)
+
+## iOS app — run locally
+
+Requires macOS with Xcode 15+.
+
+```bash
+brew install xcodegen
+cd ios
+xcodegen generate
+open MoveSafe.xcodeproj
+```
+
+In Xcode, pick an iPhone simulator and press **⌘R**. See [`ios/README.md`](ios/README.md) for more.
+
+## State coverage
+
+All 50 US states + DC are selectable. As of this revision, **8 states have verified, HEAD-checked official agency URLs** for DMV, tax agency, board of nursing, attorney general (tenant resources), and state homepage:
+
+- California, Arizona, Texas, New York, Maryland, Pennsylvania, Illinois, Virginia
+
+The other 42 states + DC are present but their URL fields are `"#"` placeholders. Sources for those states surface in the UI as **Placeholder source** (dashed badge). The research record is at [`ios/research/state_urls.json`](ios/research/state_urls.json).
+
+## Data model overview
+
+Core types (web) live in [`src/lib/types.ts`](src/lib/types.ts); iOS mirrors them in [`ios/Sources/MoveSafe/Models/Models.swift`](ios/Sources/MoveSafe/Models/Models.swift).
+
+- `State` (`USState` on iOS) — id, name, abbreviation, slug, agency URL fields
+- `Purpose` — id, name, slug, description
+- `Category` — id, name, slug, defaultRiskLevel, isHighRiskCategory, sortOrder
+- `Source` — id, title, url, sourceType, jurisdictionType, lastChecked, status, isOfficial, notes, **stateUrlBinding** (iOS — resolves URL against the origin/destination state at engine time)
+- `ChecklistItem` — id, title, categoryId, description, whyItMatters, whatToVerify, riskLevel, jurisdictionType, appliesToPurposes, appliesToProfileFlags, sourceIds, isHighRisk, …
+- Enums: `RiskLevel`, `JurisdictionType`, `SourceType`, `SourceStatus`, `ProfileFlag`
+
+## How to add a new checklist item
+
+1. Open `src/lib/data/checklistItems.ts` (web) or `ios/Sources/MoveSafe/Data/ChecklistItems.swift` (iOS).
+2. Add a new entry with all required fields (existing items are good templates).
+3. Make sure the `categoryId` matches one of the IDs in the corresponding `categories` data file.
+4. List which `appliesToPurposes` and `appliesToProfileFlags` make the item relevant. Items with empty `appliesToPurposes` show for every purpose.
+5. Link source IDs via `sourceIds` (define new sources first).
+6. **Use safe-copy language only.** Avoid "legal", "illegal", "allowed", "permitted", "prohibited", "you can", "you cannot", "safe to do X". Use "verify", "check", "may vary", "rules differ", "do not assume".
+7. For categories like firearms, cannabis, alcohol transport, prescription transport, etc., use `riskLevel: VERIFY_SEPARATELY` and avoid tactical detail.
+
+## How to add an official source
+
+1. Open `src/lib/data/sources.ts` (web) or `ios/Sources/MoveSafe/Data/Sources.swift` (iOS).
+2. Add a `Source` entry. Required fields: id, title, url, sourceType, jurisdictionType, status, isOfficial.
+3. Set `lastChecked` to the date a human verified the page (`YYYY-MM-DD`).
+4. The displayed status is computed from `lastChecked`:
+   - within 90 days → Recently verified
+   - 91–180 → Review recommended
+   - 181–365 → Possibly outdated
+   - 365+ → Stale source
+   - `status: PLACEHOLDER` → Placeholder source (always)
+   - no `lastChecked` → Missing source
+5. On iOS, generic sources can use `stateUrlBinding` to substitute the destination/origin state's matching agency URL at engine time.
+
+## How to verify and add more state URLs
+
+The research workflow used for the 8 MVP states:
+
+1. For each state, propose URLs for: official homepage, DMV/motor-vehicle agency, tax agency, attorney general (housing/tenant resources), board of nursing.
+2. HEAD-check each URL: `curl -sILA "Mozilla/5.0" -m 15 -o /dev/null -w '%{http_code}|%{url_effective}' "$url"`
+3. Follow redirects to the final URL. Use that as the canonical entry.
+4. For 404s, WebSearch with `allowed_domains: ["*.gov"]` for the agency name; pick a `.gov`/`.us` result and HEAD-check.
+5. For Cloudflare-blocked HEAD requests (some `.gov` sites use anti-bot), record the URL with a note and confirm via browser.
+6. Update the relevant entry in `ios/Sources/MoveSafe/Data/States.swift` and `ios/research/state_urls.json`.
+
+## Roadmap
+
+**Version 2** — Saved checklists in cloud, accounts, multi-device sync, PDF / email export, admin authentication, expanded source verification workflow, real URLs for the remaining 42 states + DC.
+
+**Version 3** — Route-based road-trip mode, multi-state trip checklist, local-ordinance warning layer, source update reminders, browser extension for source clipping, public source-contribution review queue.
+
+**Version 4** — Limited AI-assisted internal admin tools (e.g. summarizing official source pages for human editors). No user-facing legal chatbot.
+
+## Legal disclaimer
+
+MoveSafe provides general legal and administrative information based on publicly available sources. It does not provide legal advice, does not create an attorney-client relationship, and should not be used as a substitute for advice from a licensed attorney in your jurisdiction. Laws and agency rules change frequently. Always verify information with official sources before making decisions.

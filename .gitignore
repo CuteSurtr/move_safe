@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node / Vite (web project)
+node_modules
+dist
+dist-ssr
+.vite
+.cache
+*.local
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# TypeScript build artifacts (emitted alongside source)
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
+# Editor / IDE
+.idea
+.vscode
+*.swp
+
+# Xcode (iOS project — project.yml is the canonical source, .xcodeproj is generated)
+ios/MoveSafe.xcodeproj
+ios/build
+ios/DerivedData
+ios/*.xcworkspace/xcuserdata
+**/xcuserdata/
+**/*.xcuserstate
+**/*.xcuserdatad

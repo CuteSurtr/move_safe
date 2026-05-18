@@ -1,0 +1,208 @@
+import type { Source } from "../types";
+
+// Today's reference date for MVP demos: 2026-05-17.
+// Dates below are chosen to demonstrate each source-status bucket:
+//   - <=90d:   CURRENT
+//   - 91-180:  REVIEW_RECOMMENDED
+//   - 181-365: POSSIBLY_OUTDATED
+//   - >365:    STALE
+// Real lastChecked dates should be recorded when an editor verifies the page.
+const NOW = "2026-05-17T00:00:00.000Z";
+
+export const sources: Source[] = [
+  {
+    id: "src-destination-dmv",
+    title: "Official destination state motor vehicle agency",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "AGENCY_RULE",
+    agencyName: "Destination state DMV / MVA",
+    lastChecked: "2026-04-20",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with an official URL from the destination state motor vehicle agency before relying on this item.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-origin-dmv",
+    title: "Official origin state motor vehicle agency",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "AGENCY_RULE",
+    agencyName: "Origin state DMV / MVA",
+    lastChecked: "2026-04-20",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with an official URL from the origin state motor vehicle agency before relying on this item.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-destination-tax-agency",
+    title: "Official destination state tax agency",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "AGENCY_RULE",
+    agencyName: "Destination state tax agency",
+    lastChecked: "2026-01-20",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with the destination state's official tax agency website. Tax rules and forms change frequently.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-destination-board-of-nursing",
+    title: "Official destination state board of nursing",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "PROFESSIONAL_BOARD_RULE",
+    agencyName: "Destination state board of nursing",
+    lastChecked: "2026-05-01",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with the official destination state board of nursing URL. Board rules govern eligibility and endorsement.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-nlc-info",
+    title: "Nurse Licensure Compact general information",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "PROFESSIONAL_BOARD_RULE",
+    agencyName: "Nurse Licensure Compact",
+    lastChecked: "2025-12-01",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with the official NLC information page. Participation status and rules can change.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-destination-attorney-general",
+    title: "Official destination state attorney general — tenant resources",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "STATE_LAW",
+    agencyName: "Destination state attorney general",
+    lastChecked: "2025-09-10",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with the destination state's attorney general or housing agency. Local ordinances may add protections.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-destination-health-dept",
+    title: "Official destination state department of health",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "AGENCY_RULE",
+    agencyName: "Destination state department of health",
+    lastChecked: "2025-09-10",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes: "Replace with the destination state department of health URL.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-destination-agriculture-pets",
+    title: "Official destination state department of agriculture — pet entry",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "AGENCY_RULE",
+    agencyName: "Destination state department of agriculture",
+    lastChecked: "2025-04-13",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with the destination state agriculture / animal-health agency. Some species, breeds, or vaccinations have specific entry rules.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-destination-labor-dept",
+    title: "Official destination state department of labor",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "STATE_LAW",
+    agencyName: "Destination state department of labor",
+    lastChecked: "2026-02-15",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with the destination state labor agency for paid leave, withholding, and labor law basics.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-destination-professional-licensing",
+    title: "Official destination state professional licensing portal",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "PROFESSIONAL_BOARD_RULE",
+    agencyName: "Destination state professional licensing",
+    lastChecked: "2026-03-10",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with the destination state's professional licensing portal or relevant board for the specific profession.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-school-residency-policy",
+    title: "School residency / tuition classification policy",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "SCHOOL_POLICY",
+    agencyName: "Receiving school registrar / residency office",
+    lastChecked: "2026-04-30",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with the receiving school's residency or tuition classification page. School rules differ from state-agency rules.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-irs-state-residency-general",
+    title: "Federal tax authority general guidance",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "FEDERAL_LAW",
+    agencyName: "Federal tax authority",
+    lastChecked: "2026-04-30",
+    status: "PLACEHOLDER",
+    isOfficial: false,
+    notes:
+      "Replace with official federal tax-authority guidance. Use only as general orientation; consult a qualified tax professional.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+  {
+    id: "src-missing-example",
+    title: "Source not yet documented",
+    url: "#",
+    sourceType: "PLACEHOLDER",
+    jurisdictionType: "MIXED",
+    lastChecked: undefined,
+    status: "MISSING",
+    isOfficial: false,
+    notes:
+      "No source has been added yet for this item. Add an official source before relying on it.",
+    createdAt: NOW,
+    updatedAt: NOW,
+  },
+];
+
+export const sourcesById = new Map(sources.map((s) => [s.id, s]));
