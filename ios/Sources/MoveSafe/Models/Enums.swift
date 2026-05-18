@@ -24,9 +24,9 @@ enum RiskLevel: String, CaseIterable, Codable, Identifiable {
         case .medium:
             return "Can cause inconvenience, fees, or compliance problems if ignored."
         case .high:
-            return "May involve penalties, licensing consequences, or major state-by-state differences."
+            return "May involve penalties or licensing consequences."
         case .verifySeparately:
-            return "Rules vary substantially. Do not rely on this app - verify directly with official sources."
+            return "Rules vary widely. Verify with official sources."
         }
     }
 

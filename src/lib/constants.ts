@@ -16,9 +16,9 @@ export const riskLabels: Record<RiskLevel, string> = {
 export const riskDescriptions: Record<RiskLevel, string> = {
   LOW: "Worth knowing about. Usually administrative or low-stakes to verify.",
   MEDIUM: "Can cause inconvenience, fees, or compliance problems if ignored.",
-  HIGH: "May involve penalties, licensing consequences, or major state-by-state differences.",
+  HIGH: "May involve penalties or licensing consequences.",
   VERIFY_SEPARATELY:
-    "Rules vary substantially. Do not rely on this app - verify directly with official sources.",
+    "Rules vary widely. Verify with official sources.",
 };
 
 export const riskOrder: RiskLevel[] = [
