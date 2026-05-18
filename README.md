@@ -16,10 +16,11 @@ The example below is California → Maryland for nursing school.
   <img src="docs/screenshots/03-results.png" alt="Results screen — header, disclaimer, warnings, risk overview cards" width="260">
 </p>
 
-**Safety highlight — Dreamer / DACA acknowledgment.** When a user ticks the optional "I'm a Dreamer (DACA / similar)" profile flag, MoveSafe surfaces an immediate alert reminding them that immigration status affects driver's licenses, professional licensure, in-state tuition, and tax filing in ways that vary by state and federal law, and that this platform is not a substitute for legal counsel.
+**Safety highlights — immigration-status acknowledgments.** When a user ticks "I'm a Dreamer (DACA / similar)" or "I'm a green card holder (LPR)" in the optional profile flags, MoveSafe immediately presents a status-specific alert reminding them that the affected areas (driver's licenses & REAL ID, professional licensure, in-state tuition / school residency, Medicaid and marketplace eligibility, state tax filing, voter-registration prompts at the DMV) vary by state and federal law — and that this platform is not a substitute for legal counsel. Each alert fires only on the false → true transition of its flag, so users who already acknowledged it don't get re-prompted on every launch.
 
 <p align="center">
-  <img src="docs/screenshots/04-dreamer-alert.png" alt="Dreamer status acknowledgment alert" width="300">
+  <img src="docs/screenshots/04-dreamer-alert.png" alt="Dreamer status acknowledgment alert" width="260">
+  <img src="docs/screenshots/05-greencard-alert.png" alt="Green card holder status acknowledgment alert" width="260">
 </p>
 
 ## What MoveSafe is

@@ -51,6 +51,14 @@ struct ContentView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                 input.selectedProfileFlags.insert(.dreamer)
             }
+        } else if args.contains("--screenshot-greencard-alert") {
+            input.loadExample()
+            input.acceptedDisclaimer = true
+            input.selectedProfileFlags.remove(.greenCardHolder)
+            path = [.builder]
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                input.selectedProfileFlags.insert(.greenCardHolder)
+            }
         }
     }
 }
