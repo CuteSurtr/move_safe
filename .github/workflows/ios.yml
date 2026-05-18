@@ -64,10 +64,13 @@ jobs:
 
       - name: Fail if any tracked file contains an em dash
         run: |
-          # U+2014 EM DASH. We replaced these project-wide; this gate keeps them out.
-          if git ls-files | xargs grep -lF $'—' 2>/dev/null; then
-            echo "::error::Em dash (U+2014) found in tracked files. Use a hyphen-minus '-' instead."
-            git ls-files | xargs grep -nF $'—' 2>/dev/null || true
+          # The em dash (U+2014) is constructed via printf so this workflow
+          # file itself does not contain the literal character and therefore
+          # passes its own lint.
+          EM_DASH=$(printf '\xe2\x80\x94')
+          if git ls-files | xargs grep -lF "$EM_DASH" 2>/dev/null; then
+            echo "::error::Em dash (U+2014) found in tracked files. Use a hyphen-minus instead."
+            git ls-files | xargs grep -nF "$EM_DASH" 2>/dev/null || true
             exit 1
           fi
           echo "OK: no em dashes."
