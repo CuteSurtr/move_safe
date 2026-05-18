@@ -6,6 +6,16 @@ MoveSafe helps users understand what legal, administrative, licensing, and pract
 
 > MoveSafe is a general-information checklist and source-navigation tool. It is not a legal advice product and does not determine whether any specific conduct is lawful in any particular situation.
 
+## Screenshots (iOS)
+
+The example below is California → Maryland for nursing school.
+
+<p align="center">
+  <img src="docs/screenshots/01-landing.png" alt="Landing screen — hero, primary CTA, How it works" width="260">
+  <img src="docs/screenshots/02-builder.png" alt="Builder screen — pre-filled origin / destination / purpose with categories selected" width="260">
+  <img src="docs/screenshots/03-results.png" alt="Results screen — header, disclaimer, warnings, risk overview cards" width="260">
+</p>
+
 ## What MoveSafe is
 
 - A relocation checklist
