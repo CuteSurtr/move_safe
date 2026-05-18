@@ -131,6 +131,7 @@ enum ProfileFlag: String, CaseIterable, Codable, Identifiable {
     case mayWorkInDestinationState = "MAY_WORK_IN_DESTINATION_STATE"
     case dreamer = "DREAMER"
     case greenCardHolder = "GREEN_CARD_HOLDER"
+    case visaHolder = "VISA_HOLDER"
     case wantsHighRiskWarnings = "WANTS_HIGH_RISK_WARNINGS"
 
     var id: String { rawValue }
@@ -149,6 +150,7 @@ enum ProfileFlag: String, CaseIterable, Codable, Identifiable {
         case .mayWorkInDestinationState: return "I may work in the destination state"
         case .dreamer: return "I'm a Dreamer (DACA / similar)"
         case .greenCardHolder: return "I'm a green card holder (LPR)"
+        case .visaHolder: return "I'm on a nonimmigrant visa (F-1, H-1B, J-1, etc.)"
         case .wantsHighRiskWarnings: return "Show high-risk categories separately"
         }
     }
@@ -159,7 +161,7 @@ enum ProfileFlag: String, CaseIterable, Codable, Identifiable {
         .movingForSchool, .movingForWork, .healthcareStudent,
         .needsProfessionalLicense, .mayWorkInDestinationState,
         .permanentRelocation, .temporaryStay,
-        .dreamer, .greenCardHolder,
+        .dreamer, .greenCardHolder, .visaHolder,
         .wantsHighRiskWarnings
     ]
 }

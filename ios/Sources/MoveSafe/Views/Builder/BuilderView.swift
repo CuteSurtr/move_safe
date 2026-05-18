@@ -6,6 +6,7 @@ struct BuilderView: View {
     @State private var submitted: Bool = false
     @State private var showDreamerAlert: Bool = false
     @State private var showGreenCardAlert: Bool = false
+    @State private var showVisaAlert: Bool = false
 
     private var errors: [String] { input.validationErrors() }
     private var sameStateNotice: Bool {
@@ -52,6 +53,11 @@ struct BuilderView: View {
                 showGreenCardAlert = true
             }
         }
+        .onChange(of: input.selectedProfileFlags.contains(.visaHolder)) { wasOn, isOn in
+            if isOn && !wasOn {
+                showVisaAlert = true
+            }
+        }
         .alert("About Dreamer status", isPresented: $showDreamerAlert) {
             Button("I understand") { }
         } message: {
@@ -61,6 +67,11 @@ struct BuilderView: View {
             Button("I understand") { }
         } message: {
             Text("Lawful permanent residents (LPRs / green card holders) can face state-by-state variation in driver's license documents and REAL ID, professional licensure (especially nursing - foreign credentials evaluation may apply), Medicaid and state-marketplace eligibility (the federal 5-year bar interacts with state programs), state tax filing, and how DMVs handle voter-registration prompts (LPRs are not eligible to vote in federal or most state elections).\n\nMoveSafe is not a substitute for legal counsel. Consider consulting a licensed immigration attorney for status-affecting questions and a qualified tax professional for cross-state filing.")
+        }
+        .alert("About visa-holder status", isPresented: $showVisaAlert) {
+            Button("I understand") { }
+        } message: {
+            Text("Nonimmigrant visa holders (F-1, H-1B, J-1, L-1, O-1, and others) face state-by-state variation in driver's license documents and REAL ID (often tied to I-94 / visa dates), in-state tuition (most public universities classify F-1 students as out-of-state), professional licensure documentation, tax residency rules, and health-insurance options. USCIS also requires reporting any address change within 10 days via Form AR-11.\n\nMoveSafe is not a substitute for legal counsel. Consider consulting a licensed immigration attorney, your school's DSO if on F-1, employer HR or immigration counsel if on a work visa, and a qualified tax professional for cross-state filing.")
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

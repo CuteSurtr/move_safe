@@ -18,11 +18,12 @@ The example below is California → Maryland for nursing school.
   <img src="docs/screenshots/03-results.png" alt="Results screen - header, disclaimer, warnings, risk overview cards" width="260">
 </p>
 
-**Safety highlights - immigration-status acknowledgments.** When a user ticks "I'm a Dreamer (DACA / similar)" or "I'm a green card holder (LPR)" in the optional profile flags, MoveSafe immediately presents a status-specific alert reminding them that the affected areas (driver's licenses & REAL ID, professional licensure, in-state tuition / school residency, Medicaid and marketplace eligibility, state tax filing, voter-registration prompts at the DMV) vary by state and federal law - and that this platform is not a substitute for legal counsel. Each alert fires only on the false → true transition of its flag, so users who already acknowledged it don't get re-prompted on every launch.
+**Safety highlights - immigration-status acknowledgments.** When a user ticks "I'm a Dreamer (DACA / similar)", "I'm a green card holder (LPR)", or "I'm on a nonimmigrant visa (F-1, H-1B, J-1, etc.)" in the optional profile flags, MoveSafe immediately presents a status-specific alert reminding them that the affected areas (driver's licenses & REAL ID, professional licensure, in-state tuition / school residency, Medicaid and marketplace eligibility, state tax filing, voter-registration prompts at the DMV, USCIS AR-11 address reporting, SEVIS/DSO obligations for F-1 students, H-1B amendment triggers) vary by state and federal law - and that this platform is not a substitute for legal counsel. Each alert fires only on the false → true transition of its flag, so users who already acknowledged it don't get re-prompted on every launch.
 
 <p align="center">
   <img src="docs/screenshots/04-dreamer-alert.png" alt="Dreamer status acknowledgment alert" width="260">
   <img src="docs/screenshots/05-greencard-alert.png" alt="Green card holder status acknowledgment alert" width="260">
+  <img src="docs/screenshots/06-visa-alert.png" alt="Nonimmigrant visa holder status acknowledgment alert" width="260">
 </p>
 
 ## What MoveSafe is

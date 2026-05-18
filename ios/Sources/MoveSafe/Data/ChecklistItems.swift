@@ -578,7 +578,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-destination-dmv"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -611,7 +611,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-destination-dmv"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -645,7 +645,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-destination-dmv"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -679,7 +679,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-destination-dmv"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -714,7 +714,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-destination-professional-licensing"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -750,7 +750,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-destination-board-of-nursing", "src-nlc-info"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -785,7 +785,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-school-residency-policy"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -819,7 +819,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-school-residency-policy"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -883,7 +883,7 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-destination-health-dept"],
             isHighRisk: false,
             isStateSpecific: false,
@@ -946,13 +946,85 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
             sourceIds: ["src-destination-tax-agency", "src-irs-state-residency-general"],
             isHighRisk: false,
             isStateSpecific: false,
             isLocalSensitive: false,
             isFederalSensitive: false,
             safeLanguageNotes: "Do not state how a specific state defines residency or that someone 'is' a resident. Frame as 'rules differ by jurisdiction' and 'verify with the destination-state tax agency'. Follow the SafeCopy avoid list."
+        ),
+
+        // -------- Visa-holder specific (also flags AR-11 for LPRs and DACA) --------
+        ChecklistItem(
+            id: "uscis-ar11-address-change",
+            title: "Report your new address to USCIS within 10 days (Form AR-11)",
+            slug: "uscis-ar11-address-change",
+            categoryId: "cat-state-residency",
+            description: "Most non-citizens in the United States must report a change of address to USCIS within 10 days of moving, typically via Form AR-11 or its online equivalent.",
+            whyItMatters: "Missing the AR-11 reporting window can affect notice delivery from USCIS, may interact with future immigration filings, and is a separate requirement from updating addresses with state agencies, schools, employers, or the post office.",
+            whatToVerify: [
+                "Whether your specific status (visa category, parole, asylum, LPR, etc.) is covered by the AR-11 requirement",
+                "Whether a destination-state DMV address update or post-office change-of-address satisfies the federal requirement (it generally does not)",
+                "How to file AR-11 (online vs. paper) and what confirmation to keep for your records",
+                "Whether any pending USCIS cases require separate address updates beyond AR-11",
+                "Whether you should consult a licensed immigration attorney before filing"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
+            sourceIds: [],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Frame as a federal requirement with a short reporting window that 'may apply' depending on status. Do not state the AR-11 requirement does or does not apply to a specific user. Direct to the USCIS site and a licensed immigration attorney."
+        ),
+        ChecklistItem(
+            id: "visa-status-maintenance-after-move",
+            title: "Maintain visa status and update SEVIS / employer records after moving",
+            slug: "visa-status-maintenance-after-move",
+            categoryId: "cat-state-residency",
+            description: "Maintaining nonimmigrant visa status involves status-specific obligations that an interstate move may trigger, such as SEVIS updates for F-1 and J-1 students, address updates with an H-1B or other employer-sponsored case, and confirmation that a state-issued license has not been shortened to match a federal document expiration.",
+            whyItMatters: "Lapsed reporting, an expired status document, or a license linked to an older federal document can cascade into work-authorization, tuition, and immigration consequences that are easier to prevent than to fix.",
+            whatToVerify: [
+                "Whether your designated school official (DSO) for F-1 or J-1 status needs to update SEVIS with the new address and any program-location change",
+                "Whether an employer-sponsored status (H-1B, L-1, O-1, etc.) requires a worksite update, amendment, or address change with USCIS",
+                "Whether a driver's license issued in the origin state had an expiration tied to a federal document, and how that affects the destination-state application",
+                "Whether the destination state requires an updated I-94 or status document beyond what the origin state required",
+                "Whether you should consult a licensed immigration attorney and your DSO or HR contact about how the move affects status maintenance"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .mixed,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-permanent-relocation",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Do not say a specific user must or must not file an amendment, update SEVIS, or take any specific action. Frame as items to verify with the school DSO, employer HR / immigration counsel, and a licensed immigration attorney. Use neutral 'may apply' framing throughout."
         )
     ]
 }
