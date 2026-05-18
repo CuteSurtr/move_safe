@@ -46,7 +46,7 @@ The app uses **local seed data only** - there is no network call, no backend, an
 
 Builder selections and per-item completion are persisted to `UserDefaults` so they survive app relaunch. Keys live in `Sources/MoveSafe/Engine/PersistenceKeys.swift`. The user can wipe selections via the Builder's overflow menu ("Reset all selections") and can wipe item-completion progress via the "Reset progress" button on the Results screen.
 
-The seed in `Sources/MoveSafe/Data/` covers all 50 US states + DC and matches the web codebase's checklist items exactly: same IDs, same risk levels, same source IDs, same `lastChecked` dates. The dates are deliberately spread across the staleness buckets so the UI demonstrates each `SourceStatus` (CURRENT / REVIEW_RECOMMENDED / POSSIBLY_OUTDATED / STALE / PLACEHOLDER / MISSING).
+The seed in `Sources/MoveSafe/Data/` covers all 50 US states + DC. The 16 core checklist items match the web codebase exactly (same IDs, risk levels, source IDs, `lastChecked` dates). The iOS app has an additional 12 immigration-status items (Dreamer / LPR) appended in a dedicated section of `ChecklistItems.swift` and surfaced when the user ticks the corresponding profile flag in the Builder. These iOS-only items are sourced from `ios/research/dreamer_greencard_items.json`. The dates on bound generic sources are deliberately spread across the staleness buckets so the UI demonstrates each `SourceStatus` (CURRENT / REVIEW_RECOMMENDED / POSSIBLY_OUTDATED / STALE / PLACEHOLDER / MISSING).
 
 ## Features
 
