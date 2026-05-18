@@ -955,20 +955,21 @@ enum ChecklistItems {
             safeLanguageNotes: "Do not state how a specific state defines residency or that someone 'is' a resident. Frame as 'rules differ by jurisdiction' and 'verify with the destination-state tax agency'. Follow the SafeCopy avoid list."
         ),
 
-        // -------- Visa-holder specific (also flags AR-11 for LPRs and DACA) --------
+        // ---- Visa-holder research (2026-05-18) ----
         ChecklistItem(
-            id: "uscis-ar11-address-change",
-            title: "Report your new address to USCIS within 10 days (Form AR-11)",
-            slug: "uscis-ar11-address-change",
+            id: "uscis-ar11-ten-day-filing",
+            title: "Verify the 10-day USCIS address change filing after an interstate move",
+            slug: "uscis-ar11-ten-day-filing",
             categoryId: "cat-state-residency",
-            description: "Most non-citizens in the United States must report a change of address to USCIS within 10 days of moving, typically via Form AR-11 or its online equivalent.",
-            whyItMatters: "Missing the AR-11 reporting window can affect notice delivery from USCIS, may interact with future immigration filings, and is a separate requirement from updating addresses with state agencies, schools, employers, or the post office.",
+            description: "Federal law (INA section 265) generally directs non-citizens to report a change of address to USCIS within 10 days of moving, typically through Form AR-11 or the USCIS online change-of-address tool. The federal filing is separate from updating a state DMV record, an employer, a school, or the U.S. Postal Service.",
+            whyItMatters: "A missed AR-11 filing can disrupt USCIS notice delivery for any pending or future case, and may create a question of status maintenance that compounds with employer and school records that also need updating.",
             whatToVerify: [
-                "Whether your specific status (visa category, parole, asylum, LPR, etc.) is covered by the AR-11 requirement",
-                "Whether a destination-state DMV address update or post-office change-of-address satisfies the federal requirement (it generally does not)",
-                "How to file AR-11 (online vs. paper) and what confirmation to keep for your records",
-                "Whether any pending USCIS cases require separate address updates beyond AR-11",
-                "Whether you should consult a licensed immigration attorney before filing"
+                "Whether the 10-day clock starts on the move date or the date the new address becomes permanent",
+                "Whether the online change-of-address tool in a USCIS online account is the right path, or whether a paper Form AR-11 is needed",
+                "Whether any pending USCIS case (I-129, I-485, I-765, I-130, and similar) requires a separate address update beyond AR-11",
+                "What confirmation record (receipt, screenshot, mailed copy) to keep after filing",
+                "Whether a USPS change-of-address forwards mail from USCIS (USCIS guidance generally indicates it does not)",
+                "Whether to consult a licensed immigration attorney about how AR-11 interacts with a specific status"
             ],
             riskLevel: .high,
             jurisdictionType: .federalLaw,
@@ -983,30 +984,296 @@ enum ChecklistItems {
                 "purpose-family-move",
                 "purpose-not-sure"
             ],
-            appliesToProfileFlags: [.dreamer, .greenCardHolder, .visaHolder],
-            sourceIds: [],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "uscis-ar11-landing",
+                "uscis-change-of-address-hub",
+                "uscis-policy-manual-changes-of-address",
+                "uscis-ar11-form-pdf",
+                "uscis-online-change-address-tool-alert"
+            ],
             isHighRisk: false,
             isStateSpecific: false,
             isLocalSensitive: false,
             isFederalSensitive: true,
-            safeLanguageNotes: "Frame as a federal requirement with a short reporting window that 'may apply' depending on status. Do not state the AR-11 requirement does or does not apply to a specific user. Direct to the USCIS site and a licensed immigration attorney."
+            safeLanguageNotes: "Frame AR-11 as a federal reporting step to verify, not a guarantee of status. Do not state that any specific status category is or is not covered without source. Avoid the iOS SafeCopy avoid-list (legal-conclusion phrasing such as the i-word, the p-words, and penalty-avoidance phrasing). Direct readers to consult a licensed immigration attorney for status-specific guidance."
         ),
         ChecklistItem(
-            id: "visa-status-maintenance-after-move",
-            title: "Maintain visa status and update SEVIS / employer records after moving",
-            slug: "visa-status-maintenance-after-move",
+            id: "ar11-not-same-as-usps-or-dmv",
+            title: "Do not assume a USPS or DMV address update satisfies the federal AR-11 step",
+            slug: "ar11-not-same-as-usps-or-dmv",
             categoryId: "cat-state-residency",
-            description: "Maintaining nonimmigrant visa status involves status-specific obligations that an interstate move may trigger, such as SEVIS updates for F-1 and J-1 students, address updates with an H-1B or other employer-sponsored case, and confirmation that a state-issued license has not been shortened to match a federal document expiration.",
-            whyItMatters: "Lapsed reporting, an expired status document, or a license linked to an older federal document can cascade into work-authorization, tuition, and immigration consequences that are easier to prevent than to fix.",
+            description: "USCIS guidance generally indicates that a U.S. Postal Service change-of-address request does not change a record with USCIS and that USPS does not forward USCIS mail. A destination-state DMV address update is also a separate step from the federal AR-11 filing.",
+            whyItMatters: "Setting up mail forwarding or updating a state license can give a false sense that the federal address record is current, while a pending USCIS case may still be sending notices to an old address.",
             whatToVerify: [
-                "Whether your designated school official (DSO) for F-1 or J-1 status needs to update SEVIS with the new address and any program-location change",
-                "Whether an employer-sponsored status (H-1B, L-1, O-1, etc.) requires a worksite update, amendment, or address change with USCIS",
-                "Whether a driver's license issued in the origin state had an expiration tied to a federal document, and how that affects the destination-state application",
-                "Whether the destination state requires an updated I-94 or status document beyond what the origin state required",
-                "Whether you should consult a licensed immigration attorney and your DSO or HR contact about how the move affects status maintenance"
+                "Whether USPS mail forwarding is in place for the new address",
+                "Whether the destination-state DMV record reflects the new address on its own timeline",
+                "Whether AR-11 has been filed separately with USCIS within the federal 10-day window",
+                "Whether any active USCIS receipt number has its own e-Notification or online-account address that needs to be checked",
+                "Whether to keep dated confirmations of each address update in case a later filing relies on it"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "uscis-ar11-landing",
+                "uscis-change-of-address-hub",
+                "usps-change-of-address"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Use do not assume language. Do not state that USPS or DMV updates can substitute for AR-11 (USCIS guidance says they generally do not). Avoid the iOS SafeCopy avoid-list (legal-conclusion phrasing and penalty-avoidance phrasing)."
+        ),
+        ChecklistItem(
+            id: "f1-j1-sevis-address-dso-ten-day",
+            title: "Verify the 10-day DSO or sponsor SEVIS address update for F-1 and J-1 status",
+            slug: "f1-j1-sevis-address-dso-ten-day",
+            categoryId: "cat-state-residency",
+            description: "Department of Homeland Security guidance for F-1 and M-1 students, and Department of State regulations for J-1 exchange visitors, generally require reporting an address change to a designated school official (DSO) or program sponsor within 10 days so the SEVIS record can be updated.",
+            whyItMatters: "An outdated SEVIS address can interfere with notice delivery from SEVP or the program sponsor, and uncorrected records can place a SEVIS record at risk of termination, which can have downstream effects on status, work authorization, and travel.",
+            whatToVerify: [
+                "Whether the destination address is being reported to the DSO or J-1 sponsor within 10 days of the move",
+                "Whether both physical and mailing addresses are recorded in SEVIS if they differ",
+                "Whether the DSO has confirmed the SEVIS record was updated and any documentation that confirms the update",
+                "Whether a move that includes a change of school or program site requires additional SEVIS steps beyond an address update",
+                "Whether the federal AR-11 filing is also needed as a separate step"
             ],
             riskLevel: .high,
-            jurisdictionType: .mixed,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-permanent-relocation",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "study-in-the-states-personal-information",
+                "study-in-the-states-report-changes-dso",
+                "study-in-the-states-address-correct-sevis",
+                "ice-sevis-landing",
+                "studyinthestates-sevis-address",
+                "ice-sevis-overview"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Frame as items to verify with the DSO or J-1 sponsor and Study in the States or ICE guidance. This item is specific to F-1, M-1, and J-1 status. Avoid the iOS SafeCopy avoid-list (legal-conclusion phrasing and penalty-avoidance phrasing)."
+        ),
+        ChecklistItem(
+            id: "f1-sevis-school-transfer",
+            title: "Verify F-1 SEVIS school-transfer steps if the move is to a different school",
+            slug: "f1-sevis-school-transfer",
+            categoryId: "cat-student-relocation",
+            description: "An F-1 student moving to another SEVP-certified school generally goes through a SEVIS record transfer between the current school's DSO and the new school's DSO, with a transfer release date, an initial reporting requirement at the new school, and a new Form I-20.",
+            whyItMatters: "Missing the transfer reporting steps at the new school, or letting the transfer release date and program start fall out of sync, can affect status maintenance and access to on-campus work.",
+            whatToVerify: [
+                "Whether the current school DSO and the new school DSO have coordinated a SEVIS transfer release date",
+                "Whether a new Form I-20 from the destination school has been issued and signed",
+                "Whether the program start date and on-campus reporting deadline at the new school have been confirmed",
+                "How a transfer interacts with current employment authorization, on-campus work, and any pending OPT",
+                "Whether to consult the DSO and a licensed immigration attorney before making decisions that affect the transfer timeline"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-permanent-relocation",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "study-in-the-states-transfer-f1",
+                "ice-f1-transfers",
+                "ice-sevis-landing"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "F-1 specific. Frame as verify with both DSOs and reference Study in the States or ICE materials. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "opt-stem-opt-sevp-portal-updates",
+            title: "Verify SEVP Portal updates for address, employer, and unemployment-day tracking on OPT or STEM OPT",
+            slug: "opt-stem-opt-sevp-portal-updates",
+            categoryId: "cat-employment",
+            description: "F-1 students on post-completion OPT or a STEM OPT extension generally use the SEVP Portal or work with their DSO to update physical and mailing address, employer information, and other personal data, typically within 10 days of a change. Unemployment-day limits during OPT continue to apply during and after a move.",
+            whyItMatters: "An interstate move during OPT or STEM OPT often coincides with an employer change, and missed reporting can affect both SEVIS standing and the running count of unemployment days, which is tracked at the federal level rather than by the destination state.",
+            whatToVerify: [
+                "Whether the new physical and mailing address has been entered in the SEVP Portal or reported to the DSO within 10 days",
+                "Whether employer name, address, supervisor, and start or end dates are current in the SEVP Portal or reported to the DSO",
+                "How the move affects any STEM OPT Form I-983 training plan and the destination employer's E-Verify status",
+                "How unemployment days are counted during a gap between employers around a move",
+                "Whether to consult the DSO and a licensed immigration attorney before changing employers around an interstate move"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-work",
+                "purpose-internship",
+                "purpose-clinical-placement",
+                "purpose-permanent-relocation",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "study-in-the-states-opt-reporting",
+                "study-in-the-states-stem-opt-hub",
+                "ice-sevis-landing"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "F-1 OPT and STEM OPT specific. Use verify with the DSO and SEVP Portal guidance. Avoid the iOS SafeCopy avoid-list (legal-conclusion phrasing and penalty-avoidance phrasing). Do not advise on a specific status outcome."
+        ),
+        ChecklistItem(
+            id: "h1b-lca-amendment-new-msa",
+            title: "Verify whether an H-1B amended petition is needed for a worksite move to a new MSA",
+            slug: "h1b-lca-amendment-new-msa",
+            categoryId: "cat-employment",
+            description: "Under USCIS guidance following Matter of Simeio Solutions (2015), an H-1B worker's move to a worksite outside the metropolitan statistical area (MSA) or area of intended employment listed on the current Labor Condition Application (LCA) is generally a material change that calls for a new LCA and an amended H-1B petition.",
+            whyItMatters: "Starting work at a new worksite outside the LCA's MSA without an amended petition can affect status maintenance, and the timing of the amended petition filing matters for when the worker can begin at the new location.",
+            whatToVerify: [
+                "Whether the new worksite is inside the same MSA or area of intended employment as the current LCA, or in a new MSA",
+                "Whether the employer is filing a new LCA and an amended Form I-129 before or shortly after the worker reports to the new worksite",
+                "Whether posting requirements for the existing LCA at the new location, when in the same MSA, have been satisfied",
+                "Whether a short-term placement exception (subject to federal time limits) applies before an amendment is needed",
+                "How the move interacts with H-4 dependent status and any pending I-485 or I-140",
+                "Whether to consult employer counsel and a licensed immigration attorney before the worker starts at the new location"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "uscis-simeio-final-guidance",
+                "uscis-h1b-landing",
+                "dol-foreign-labor-flag-portal"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "H-1B specific. Frame as verify with employer counsel and USCIS or DOL guidance. Do not state that an amendment is or is not required in a particular fact pattern. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "h1b-portability-same-employer-same-msa",
+            title: "Verify H-1B portability and address handling for a move within the same MSA",
+            slug: "h1b-portability-same-employer-same-msa",
+            categoryId: "cat-employment",
+            description: "USCIS guidance generally indicates that an H-1B worker moving to a new worksite within the same MSA or area of intended employment as the existing LCA does not require a new LCA or an amended H-1B petition, although the existing LCA may still need to be posted at the new worksite. The federal AR-11 address change requirement still applies to the worker.",
+            whyItMatters: "Treating an intra-MSA worksite change as a full new petition can create unnecessary cost and timing risk, while assuming portability rules apply without checking the MSA boundaries can lead to status questions later.",
+            whatToVerify: [
+                "Whether the new worksite falls inside the MSA or area of intended employment listed on the current LCA",
+                "Whether the existing LCA needs to be posted at the new worksite for the required period",
+                "Whether the federal AR-11 address change has been filed within 10 days of the residential move",
+                "Whether any change in job duties, hours, or wage triggers a separate amendment analysis even when the worksite stays in the same MSA",
+                "Whether to consult employer counsel before relying on intra-MSA treatment"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "uscis-h1b-landing",
+                "uscis-simeio-final-guidance",
+                "uscis-ar11-landing"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "H-1B specific. Use verify whether MSA boundaries cover the new worksite. Do not assert that no amendment is needed in any specific fact pattern. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "l1-o1-worksite-amendment-check",
+            title: "Verify L-1 or O-1 worksite change handling against the approved petition",
+            slug: "l1-o1-worksite-amendment-check",
+            categoryId: "cat-employment",
+            description: "For L-1A, L-1B, and O-1 status, USCIS treats a move to a new worksite as a material change in some fact patterns and not others, depending on what the original petition described and whether the new location is consistent with the approved terms. The analysis follows the underlying petition, not LCA-based MSA rules.",
+            whyItMatters: "Assuming H-1B-style MSA logic for L-1 or O-1 can lead to a missed amendment when the original petition described a specific worksite or itinerary that no longer matches.",
+            whatToVerify: [
+                "Whether the original L-1 or O-1 petition listed a specific worksite, employer location, or itinerary that the move changes",
+                "For O-1, whether the new venue, event, engagement, or agent arrangement falls within the approved petition scope",
+                "For L-1, whether the new worksite is the same qualifying U.S. office described in the petition or a different one",
+                "Whether the employer or petitioner is filing an amended Form I-129 before the worker reports to the new location",
+                "Whether the federal AR-11 address change has been filed within 10 days of the residential move",
+                "Whether to consult petitioner counsel and a licensed immigration attorney before the worker starts at the new location"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-temporary-stay",
+                "purpose-internship",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "uscis-l1a-page",
+                "uscis-l1b-page",
+                "uscis-o1-page"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "L-1 and O-1 specific. Frame as verify against the approved petition and consult petitioner counsel. Do not state that an amendment is or is not needed for any specific scenario. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "j1-program-sponsor-site-of-activity",
+            title: "Verify J-1 program sponsor reporting for site-of-activity or host-organization changes",
+            slug: "j1-program-sponsor-site-of-activity",
+            categoryId: "cat-employment",
+            description: "Under 22 CFR Part 62, J-1 program sponsors maintain the SEVIS record and monitor the site of activity for each exchange visitor. A move that changes residence, site of activity, or host organization generally triggers an exchange-visitor reporting obligation to the sponsor and a sponsor update to SEVIS.",
+            whyItMatters: "Because the J-1 sponsor (not USCIS) controls the SEVIS record and may need Department of State approval for certain changes, a move can affect program compliance differently from H-1B or F-1 scenarios.",
+            whatToVerify: [
+                "Whether the J-1 sponsor has been notified within 10 days of any change in U.S. address, telephone, or email",
+                "Whether a change in site of activity or host organization needs prior sponsor authorization before it occurs",
+                "Whether any category-specific rules (research scholar, professor, intern, trainee, physician, au pair, and others) add steps that the sponsor must approve",
+                "Whether the federal AR-11 filing is also needed in addition to sponsor notification",
+                "Whether to consult the responsible officer or alternate responsible officer at the sponsor and a licensed immigration attorney for category-specific guidance"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .federalLaw,
             appliesToPurposes: [
                 "purpose-moving-for-school",
                 "purpose-moving-for-work",
@@ -1019,12 +1286,497 @@ enum ChecklistItems {
                 "purpose-not-sure"
             ],
             appliesToProfileFlags: [.visaHolder],
-            sourceIds: [],
+            sourceIds: [
+                "j1visa-state-gov",
+                "j1visa-program-categories",
+                "ecfr-22cfr-part-62",
+                "ecfr-22cfr-62-13-notification"
+            ],
             isHighRisk: false,
             isStateSpecific: false,
             isLocalSensitive: false,
             isFederalSensitive: true,
-            safeLanguageNotes: "Do not say a specific user must or must not file an amendment, update SEVIS, or take any specific action. Frame as items to verify with the school DSO, employer HR / immigration counsel, and a licensed immigration attorney. Use neutral 'may apply' framing throughout."
+            safeLanguageNotes: "J-1 specific. Frame as verify with the program sponsor and reference 22 CFR Part 62. Do not state that any specific category does or does not require sponsor pre-approval for a particular change. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "substantial-presence-test-federal-residency",
+            title: "Verify federal tax residency under the Substantial Presence Test after a move",
+            slug: "substantial-presence-test-federal-residency",
+            categoryId: "cat-taxes",
+            description: "For federal tax purposes, a non-citizen is generally treated as a resident alien if they meet the Substantial Presence Test or hold lawful permanent resident status, with separate rules in IRS Publication 519 for exempt individuals (such as certain F-1, J-1, M-1, and Q students and scholars) whose days of presence may not count.",
+            whyItMatters: "Federal residency for tax purposes determines whether worldwide income is reported, which IRS forms apply, and how an interstate move's first and last year are filed at the federal level, separately from state residency rules.",
+            whatToVerify: [
+                "Whether the calendar-year count of days under the Substantial Presence Test meets the federal threshold for the current year",
+                "Whether an exempt-individual rule (for certain F, J, M, Q categories) may apply and for how many years",
+                "Whether a closer connection exception or a tax-treaty tie-breaker rule may apply",
+                "How a year of arrival to or departure from the United States interacts with the test",
+                "Whether to consult a tax preparer familiar with non-citizen federal tax issues before relying on a particular residency conclusion"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-internship",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "irs-pub-519",
+                "irs-substantial-presence-test",
+                "irs-determining-tax-residency",
+                "irs-nonresident-alien-taxation"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Frame as items to verify with IRS Publication 519 and a tax preparer. Do not state a person is or is not a resident alien for federal tax purposes. Use may apply and rules differ by jurisdiction. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "dual-status-year-tax-filing",
+            title: "Verify dual-status year considerations for the federal return covering a move",
+            slug: "dual-status-year-tax-filing",
+            categoryId: "cat-taxes",
+            description: "IRS Publication 519 describes a dual-status tax year for non-citizens who are both a nonresident and a resident for federal tax purposes during the same year, which can apply to many arrival, departure, and adjustment-of-status fact patterns rather than interstate moves alone.",
+            whyItMatters: "A first or last year in the United States, or a year that includes adjustment to LPR status, can involve different forms, allowable deductions, and treatment of foreign income than a standard resident or nonresident return.",
+            whatToVerify: [
+                "Whether the tax year of the move includes both nonresident and resident periods for federal tax purposes",
+                "Which forms (1040, 1040-NR, and supporting statements) apply for a dual-status year",
+                "Whether a first-year choice or a tax-treaty election can change the analysis",
+                "Whether a state return for the destination or origin state must be filed alongside the federal dual-status return",
+                "Whether to consult a tax preparer who handles dual-status filings"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-internship",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "irs-pub-519",
+                "irs-dual-status",
+                "irs-determining-tax-residency"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Frame as items to verify in IRS Publication 519 and with a qualified tax preparer. Do not state a person is a dual-status filer for a particular year. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "fica-exemption-f1-j1-nonresident",
+            title: "Verify FICA (Social Security and Medicare) handling for F-1 and J-1 nonresident aliens",
+            slug: "fica-exemption-f1-j1-nonresident",
+            categoryId: "cat-taxes",
+            description: "IRS guidance generally describes an exemption from FICA tax for wages paid for services performed by F-1, J-1, M-1, and Q nonresident-alien students, scholars, teachers, researchers, and trainees, when the work is part of the activity for which they were admitted and they remain nonresident aliens for federal tax purposes.",
+            whyItMatters: "After a move that involves a new employer, payroll systems may default to withholding FICA, and a misclassification can take time to correct through the employer or via an IRS refund claim.",
+            whatToVerify: [
+                "Whether the worker still meets the IRS conditions for the F-1, J-1, M-1, or Q FICA exemption (status type, primary purpose, and federal tax residency)",
+                "Whether the new employer's payroll setup reflects the exemption",
+                "How OPT or STEM OPT employment is treated for FICA while the worker remains a nonresident alien",
+                "Whether a year of transition to resident-alien status under the Substantial Presence Test changes FICA treatment",
+                "Whether to consult a tax preparer or the employer's payroll team to verify FICA setup after the move"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-internship",
+                "purpose-clinical-placement",
+                "purpose-permanent-relocation",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "irs-fica-foreign-students",
+                "irs-fica-aliens-employed",
+                "irs-pub-519"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "F-1, J-1, M-1, and Q specific. Frame as items to verify with IRS guidance and the employer. Do not state that a particular worker is exempt from FICA. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "selective-service-nonimmigrant-exemption",
+            title: "Verify how Selective Service registration applies to a specific nonimmigrant status",
+            slug: "selective-service-nonimmigrant-exemption",
+            categoryId: "cat-state-residency",
+            description: "Selective Service System materials generally describe a Selective Service registration requirement for almost all men ages 18 through 25 living in the United States, with an exception for men who are in the United States on a current valid nonimmigrant visa while that status remains valid up to age 26.",
+            whyItMatters: "Whether the exception covers a specific person depends on age, current status, and continuity of valid nonimmigrant status, and a later transition to LPR or naturalization can revive a registration question relevant to federal benefits and naturalization.",
+            whatToVerify: [
+                "Whether the person is within the age range to which the federal requirement may apply",
+                "Whether their current nonimmigrant status is on the list described by the Selective Service System as covered by the exception",
+                "How a future change to LPR status before age 26 may affect the registration question",
+                "How the destination state's DMV or other application workflows interact with Selective Service screening",
+                "Whether to consult a licensed immigration attorney about how registration history may interact with later filings"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-temporary-stay",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "sss-who-must-register",
+                "sss-who-must-register-chart",
+                "sss-faq"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Frame as a federal requirement that may apply, with a nonimmigrant exception that may apply based on continuous valid status. Do not state that any specific person is or is not required to register. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "aca-marketplace-lawfully-present-nonimmigrants",
+            title: "Verify ACA marketplace categories described as lawfully present for nonimmigrants",
+            slug: "aca-marketplace-lawfully-present-nonimmigrants",
+            categoryId: "cat-healthcare-access",
+            description: "Federal HealthCare.gov guidance describes a list of immigration statuses considered lawfully present for purposes of the Affordable Care Act marketplace, which includes many common nonimmigrant categories. These categories can purchase coverage without a five-year waiting period that applies in many Medicaid contexts.",
+            whyItMatters: "A move that triggers loss of prior coverage may open a marketplace special enrollment period, and the eligibility framework for nonimmigrants can differ from Medicaid waiting-period rules. Federal rules in this area have been changing.",
+            whatToVerify: [
+                "Whether the current nonimmigrant status appears on the current HealthCare.gov lawfully present list",
+                "Whether the destination state uses HealthCare.gov or runs its own state-based marketplace with separate documentation rules",
+                "Whether the move triggers a special enrollment period and the documentation needed to verify status",
+                "Whether premium tax credit or cost-sharing reduction eligibility rules have changed for the relevant year",
+                "Whether to consult a licensed immigration attorney before submitting status documentation to the marketplace"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .federalLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "healthcare-gov-lawfully-present",
+                "healthcare-gov-immigrants-coverage",
+                "healthcare-gov-immigration-status",
+                "cms-marketplace-overview"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Frame as items to verify with the current HealthCare.gov or state-based marketplace lists. Do not state any specific category is or is not on the lawfully present list, since federal rules have changed. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "medicare-medicaid-nonimmigrant-eligibility",
+            title: "Verify Medicare and Medicaid eligibility rules that may apply to nonimmigrants after a move",
+            slug: "medicare-medicaid-nonimmigrant-eligibility",
+            categoryId: "cat-healthcare-access",
+            description: "Federal Medicare guidance generally describes eligibility for non-citizens who are lawfully admitted for permanent residence and have lived in the United States for five continuous years. Federal Medicaid rules for most nonimmigrants are narrower than for LPRs, with state-specific options for emergency Medicaid and for lawfully residing children and pregnant individuals.",
+            whyItMatters: "Many nonimmigrant visa holders are not within the standard Medicare or Medicaid eligibility groups, and federal rules in this area have been changing. Destination-state Medicaid rules add another layer that may differ from origin-state rules.",
+            whatToVerify: [
+                "Whether the current status is within a recognized federal eligibility group for Medicare or Medicaid",
+                "Whether destination-state Medicaid offers emergency-only coverage to nonimmigrants and what documentation it requires",
+                "Whether the destination state has elected the CHIPRA option to cover lawfully residing children and pregnant individuals without a federal waiting period",
+                "How the move and any change in employer-sponsored coverage interact with marketplace special enrollment timing",
+                "Whether to consult the destination-state Medicaid agency for current eligibility categories"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .mixed,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "cms-medicare-eligibility-original",
+                "medicare-gov-get-started",
+                "cms-medicaid-chip-noncitizen-press",
+                "ssa-poms-rs00204010"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Frame as items to verify with CMS and the destination-state Medicaid agency. Federal rules have changed and may continue to change. Do not state a person is or is not eligible. Avoid the iOS SafeCopy avoid-list."
+        ),
+        ChecklistItem(
+            id: "visa-dmv-documents-nonimmigrant",
+            title: "Verify destination-state DMV documents for nonimmigrant visa applicants",
+            slug: "visa-dmv-documents-nonimmigrant",
+            categoryId: "cat-drivers-license",
+            description: "State DMV document checklists for nonimmigrant visa applicants (F-1, J-1, H-1B, L-1, O-1 and similar) can differ from those used for U.S. citizens or lawful permanent residents. Accepted combinations of passport, visa, I-94, I-20 or DS-2019, and I-797 or employer letter may vary, and some states ask for an SSN card or an SSA ineligibility letter.",
+            whyItMatters: "Arriving without the document combination the destination-state DMV expects can delay license issuance, which then delays other tasks that rely on a state credential after a move, including rental, employer onboarding, and school registration.",
+            whatToVerify: [
+                "Which federal immigration documents the destination-state DMV currently lists for nonimmigrant visa applicants (for example, passport with visa stamp, I-94, I-20 or DS-2019, I-797, employer support letter)",
+                "Whether the destination state requires a Social Security card or an SSA ineligibility letter, and how the visa category interacts with SSN issuance timing",
+                "Whether proof of in-state residency is required in addition to identity and status documents, and what residency proofs the DMV accepts for new arrivals",
+                "Whether the destination state imposes a minimum remaining stay on the I-94 before issuing a credential",
+                "Whether the destination DMV requires original documents and current address proofs, and whether copies or translations are accepted",
+                "Whether you should consult your designated school official, employer immigration contact, or a licensed immigration attorney before applying"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .agencyRule,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "ca-dmv-realid-noncitizen",
+                "tx-dps-id-requirements",
+                "ny-dmv-noncitizen-resources",
+                "fl-flhsmv-nonimmigrant",
+                "il-sos-tvdl",
+                "ma-rmv-id-requirements",
+                "wa-dol-proof-of-identity",
+                "ga-dds-non-us-citizens",
+                "i94-cbp",
+                "uscis-employment-authorization"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Do not state which states issue or do not issue licenses to a given visa category, and do not list specific accepted documents. Frame everything as items to verify with the destination-state DMV. Follow the SafeCopy avoid list."
+        ),
+        ChecklistItem(
+            id: "visa-real-id-status-document-expiration",
+            title: "Verify how a destination-state REAL ID expiration may track an underlying federal document",
+            slug: "visa-real-id-status-document-expiration",
+            categoryId: "cat-drivers-license",
+            description: "Federal REAL ID rules require evidence of lawful status, and many states issue a REAL ID to nonimmigrant visa holders only with an expiration date that does not extend past the I-94, the visa, or another underlying federal document. Implementation differs between states, and standard (non-REAL-ID) options may or may not be offered.",
+            whyItMatters: "If a credential is issued with an unexpected short term tied to a federal document, the timing of renewal can affect domestic flights, federal building access, and other tasks that may rely on a REAL ID after a move.",
+            whatToVerify: [
+                "Whether the destination-state DMV will issue a REAL ID to your specific visa category and which federal documents it requires",
+                "Whether the REAL ID expiration date may be tied to the I-94, the visa, or an I-797 or I-20 or DS-2019, and how renewal works after a status extension",
+                "Whether a standard (non-REAL-ID) credential is offered as an alternative and whether its expiration is also tied to a federal document",
+                "Whether a separate identifier or marking appears on credentials issued to applicants with temporary lawful status in that state",
+                "Whether identity, residency, and SSN documents are required in addition to status documents",
+                "Whether you should consult your designated school official, employer immigration contact, or a licensed immigration attorney about timing renewals around an extension or change of status"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .mixed,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .greenCardHolder, .dreamer],
+            sourceIds: [
+                "tsa-real-id",
+                "tsa-real-id-faqs",
+                "ca-dmv-realid-noncitizen",
+                "ny-dmv-realid-enhanced",
+                "ma-rmv-id-requirements",
+                "i94-cbp"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Do not assert that any visa category is or is not eligible for REAL ID in a given state. REAL ID involves both federal minimums and state implementation that may change. Use 'verify' and 'may vary' language only and follow the SafeCopy avoid list."
+        ),
+        ChecklistItem(
+            id: "visa-license-renewal-cycle-tied-to-i94",
+            title: "Verify license fee and renewal-cycle rules that may follow an I-94 expiration",
+            slug: "visa-license-renewal-cycle-tied-to-i94",
+            categoryId: "cat-drivers-license",
+            description: "Some states issue driver licenses or state IDs to nonimmigrant visa applicants on a shortened renewal cycle that tracks the I-94 or an underlying federal document, instead of the multi-year cycle used for citizens. Fees, renewal timing, and steps after a status extension can differ between origin and destination states.",
+            whyItMatters: "A move that triggers a fresh application in the destination state may produce a credential with a different renewal cycle than the prior state used, and timing renewal around an I-94 or visa extension can affect work, study, and travel logistics.",
+            whatToVerify: [
+                "Whether the destination-state DMV typically issues a credential to your visa category for the standard multi-year cycle or for a shortened cycle keyed to the I-94 or another federal document",
+                "Whether a fresh I-94 printout or an updated I-797 is needed at the time of renewal, and whether the DMV verifies status through a federal system in real time",
+                "Whether renewal fees and step counts differ from the standard renewal process used for citizens",
+                "How an in-progress extension of status (for example, an H-1B amendment or an F-1 transfer) interacts with renewing or replacing the credential",
+                "Whether you should consult your designated school official, employer immigration contact, or a licensed immigration attorney about timing a DMV renewal around a pending federal filing"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .agencyRule,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "ca-dmv-realid-noncitizen",
+                "tx-dps-id-requirements",
+                "fl-flhsmv-nonimmigrant",
+                "il-sos-tvdl",
+                "ga-dds-non-us-citizens",
+                "i94-cbp"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Do not assert that any specific state always uses a shortened renewal cycle for a given visa category. Frame as items to verify with the destination-state DMV. Follow the SafeCopy avoid list."
+        ),
+        ChecklistItem(
+            id: "visa-instate-tuition-classification",
+            title: "Verify destination-state tuition classification rules for nonimmigrant visa students",
+            slug: "visa-instate-tuition-classification",
+            categoryId: "cat-student-relocation",
+            description: "Public college and university residency rules for tuition often treat nonimmigrant visa holders (such as F-1 and J-1 students) differently from U.S. citizens and lawful permanent residents. Some visa categories are considered able to establish a domicile in a state, while others generally are not, and some states have separate statutes or board regulations that apply to high school graduates from the state regardless of status. Rules vary across the state higher-education agency, a system office, and individual institutions.",
+            whyItMatters: "Whether a student is classified as resident, nonresident, or under a state tuition-equity provision can change the cost of attendance significantly, and rules vary across origin and destination states and across institutions within a state.",
+            whatToVerify: [
+                "Whether the destination state recognizes your specific visa category as one that may establish a domicile for tuition purposes",
+                "Whether the destination state has a tuition-equity or high-school-attendance provision that could apply, and what documentation it requires",
+                "Whether the institution you plan to attend sets its own classification rules in addition to any state policy",
+                "How long you must hold residency in the destination state before being considered for in-state classification, and whether time on a nonimmigrant visa counts",
+                "What documents (for example, I-94, I-20 or DS-2019, I-797, transcripts, affidavits, tax records) the registrar requires to support a classification request",
+                "Whether moving mid-program changes the classification timeline",
+                "Whether you should consult the registrar, your designated school official, and a licensed immigration attorney about how your documentation interacts with classification"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .mixed,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-permanent-relocation",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "tx-higher-ed-residency",
+                "ca-uc-ab540-exemption",
+                "suny-residency-tuition-policy",
+                "cuny-residency-tuition-manual",
+                "nj-tuition-equality-act",
+                "il-isac-nonus-citizens",
+                "il-ibhe-undocumented-liaisons",
+                "fl-bog-residency-requirements"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Do not characterize whether any visa category can establish residency in a specific state as a determination. Frame as classification rules to verify with the school registrar and the state higher-education agency. Follow the SafeCopy avoid list."
+        ),
+        ChecklistItem(
+            id: "visa-professional-licensing-documentation",
+            title: "Verify destination-state professional licensing documentation rules for visa or OPT applicants",
+            slug: "visa-professional-licensing-documentation",
+            categoryId: "cat-professional-license",
+            description: "Professional and occupational licensing boards (including nursing, medicine, law, engineering, and many others) set their own documentation rules. Whether a state board accepts an EAD, asks for an SSN, accepts an ITIN or affidavit, accepts an I-797 for an H-1B or O-1 worker, or requires fingerprint background checks tied to a specific status can differ across states and across professions within a state. Some boards specifically address F-1 OPT and J-1 academic-training applicants.",
+            whyItMatters: "Application delays, denials, or re-fingerprinting may follow if the documents you submit do not match the destination-state board's current rules, especially when moving from a state with different requirements. Boards of Nursing also vary in how they treat the Nurse Licensure Compact for non-citizen primary state of residency.",
+            whatToVerify: [
+                "Whether the destination-state board for your profession lists nonimmigrant visa categories or OPT or academic training in its documentation guidance",
+                "Whether an SSN is required to apply, and whether an ITIN, an SSA ineligibility letter, or an affidavit is accepted as an alternative",
+                "Whether your visa documents (passport with visa, I-94, I-20 or DS-2019, I-797, EAD) are on the accepted-documents list",
+                "Whether the application asks for a lawful presence attestation and what document supports it",
+                "Whether a license issued to a visa holder may have a shorter renewal cycle tied to a federal document",
+                "For nursing specifically, how the destination state treats primary state of residency under the Nurse Licensure Compact for a non-citizen who declares either the country of origin or the compact state, and any credentials-evaluation requirement (for example, CGFNS) for internationally educated applicants",
+                "Whether you should consult both the board and a licensed immigration attorney before signing licensing attestations"
+            ],
+            riskLevel: .high,
+            jurisdictionType: .professionalBoardRule,
+            appliesToPurposes: [
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-nursing-school",
+                "purpose-clinical-placement",
+                "purpose-internship",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder, .dreamer, .greenCardHolder],
+            sourceIds: [
+                "ca-rn-licensure-faqs",
+                "ca-rn-endorsement-international",
+                "tx-bon-eligibility",
+                "tx-bon-endorsement",
+                "ny-op-rn-license-requirements",
+                "ncsbn-nurse-licensure-guidance",
+                "ncsbn-nurse-licensure-compact",
+                "nursecompact-faqs"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: true,
+            safeLanguageNotes: "Do not state that any specific board does or does not license a given visa category. Frame everything as items to verify with the destination-state board. Follow the SafeCopy avoid list."
+        ),
+        ChecklistItem(
+            id: "visa-state-tax-residency-nra",
+            title: "Verify state tax residency rules and how they interact with federal nonresident alien status",
+            slug: "visa-state-tax-residency-nra",
+            categoryId: "cat-taxes",
+            description: "State tax residency is determined under each state's own rules, which may differ from federal tax residency. A person treated as a nonresident alien on the federal return may still be a resident, part-year resident, or nonresident for state purposes depending on domicile, days of physical presence, employer location, and other factors. States may or may not conform to federal income tax treaty exclusions.",
+            whyItMatters: "A move part-way through a tax year may produce part-year filings, multiple state filings, or unexpected withholding, and the interaction between federal nonresident alien treatment and state residency rules can change between origin and destination.",
+            whatToVerify: [
+                "Whether the destination state defines residency by domicile, by days of physical presence, or by a combination",
+                "Whether the destination state conforms to federal income tax treaty exclusions for nonresident aliens, or taxes that income at the state level",
+                "Whether you may owe a part-year return in the origin state and another in the destination state for the year of the move",
+                "Whether your employer's state tax withholding should be updated after the move and which form is used",
+                "Whether the destination state accepts an ITIN where an SSN is requested on its return, and whether a separate state tax ID is offered",
+                "Whether you should consult a tax preparer familiar with nonresident alien filers in the destination state"
+            ],
+            riskLevel: .medium,
+            jurisdictionType: .stateLaw,
+            appliesToPurposes: [
+                "purpose-moving-for-school",
+                "purpose-moving-for-work",
+                "purpose-permanent-relocation",
+                "purpose-internship",
+                "purpose-family-move",
+                "purpose-not-sure"
+            ],
+            appliesToProfileFlags: [.visaHolder],
+            sourceIds: [
+                "ca-ftb-residency-status",
+                "ca-ftb-part-year-nonresident",
+                "ny-tax-nonresident-partyear",
+                "ny-tax-nonresident-faqs",
+                "ma-dor-nonresident-tax",
+                "ma-dor-part-year-tax"
+            ],
+            isHighRisk: false,
+            isStateSpecific: false,
+            isLocalSensitive: false,
+            isFederalSensitive: false,
+            safeLanguageNotes: "Do not state how a specific state defines residency for a given visa category or that someone 'is' a resident. Frame as 'rules differ by jurisdiction' and 'verify with the destination-state tax agency'. Follow the SafeCopy avoid list."
         )
     ]
 }
