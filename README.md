@@ -88,11 +88,17 @@ In Xcode, pick an iPhone simulator and press **⌘R**. See [`ios/README.md`](ios
 
 ## State coverage
 
-All 50 US states + DC are selectable. As of this revision, **8 states have verified, HEAD-checked official agency URLs** for DMV, tax agency, board of nursing, attorney general (tenant resources), and state homepage:
+All 50 US states + DC are selectable. Each entry carries up to five verified agency URLs:
 
-- California, Arizona, Texas, New York, Maryland, Pennsylvania, Illinois, Virginia
+- official state homepage
+- motor vehicle agency (DMV, BMV, MVD, Secretary of State, etc., depending on the state)
+- tax agency
+- attorney general / tenant resources
+- board of nursing
 
-The other 42 states + DC are present but their URL fields are `"#"` placeholders. Sources for those states surface in the UI as **Placeholder source** (dashed badge). The research record is at [`ios/research/state_urls.json`](ios/research/state_urls.json).
+**246 of 255 URL slots have been verified** against the live web (HEAD/GET on `.gov`/`.us`/official non-gov agency domains, redirects followed). The remaining 9 are documented placeholders — for example, Hawaii has no state-wide DMV because motor vehicle services are county-administered, and a handful of state nursing boards returned DNS errors on the verification run and need re-checking. The full research record, including per-placeholder reasons, is at [`ios/research/state_urls.json`](ios/research/state_urls.json).
+
+Where the engine resolves a generic source (e.g. "Destination state board of nursing") against a state's actual URL, the source surfaces in the UI as **Recently verified** with a green badge; placeholders continue to show the dashed **Placeholder source** badge.
 
 ## Data model overview
 
