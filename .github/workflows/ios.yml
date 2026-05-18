@@ -1,0 +1,73 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (iOS Simulator)
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          sw_vers
+          xcodebuild -version
+          swift --version
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: xcodegen generate
+
+      - name: Build for iOS Simulator
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project MoveSafe.xcodeproj \
+            -scheme MoveSafe \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -configuration Debug \
+            -skipPackagePluginValidation \
+            -skipMacroValidation \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Locate built .app
+        run: |
+          APP=$(find ~/Library/Developer/Xcode/DerivedData -name MoveSafe.app -path '*Build/Products/Debug-iphonesimulator*' | head -1)
+          echo "Built: $APP"
+          du -sh "$APP"
+
+  em-dash-lint:
+    name: Em-dash lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fail if any tracked file contains an em dash
+        run: |
+          # U+2014 EM DASH. We replaced these project-wide; this gate keeps them out.
+          if git ls-files | xargs grep -lF $'—' 2>/dev/null; then
+            echo "::error::Em dash (U+2014) found in tracked files. Use a hyphen-minus '-' instead."
+            git ls-files | xargs grep -nF $'—' 2>/dev/null || true
+            exit 1
+          fi
+          echo "OK: no em dashes."

@@ -1,5 +1,7 @@
 # MoveSafe
 
+[![iOS CI](https://github.com/CuteSurtr/move_safe/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/CuteSurtr/move_safe/actions/workflows/ios.yml)
+
 A source-first, state-to-state relocation checklist for the United States - available as a web app (Vite + React) and a native iOS app (SwiftUI).
 
 MoveSafe helps users understand what legal, administrative, licensing, and practical topics they should **verify** when moving across state lines, traveling, or temporarily staying in another state.
