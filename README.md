@@ -16,6 +16,12 @@ The example below is California → Maryland for nursing school.
   <img src="docs/screenshots/03-results.png" alt="Results screen — header, disclaimer, warnings, risk overview cards" width="260">
 </p>
 
+**Safety highlight — Dreamer / DACA acknowledgment.** When a user ticks the optional "I'm a Dreamer (DACA / similar)" profile flag, MoveSafe surfaces an immediate alert reminding them that immigration status affects driver's licenses, professional licensure, in-state tuition, and tax filing in ways that vary by state and federal law, and that this platform is not a substitute for legal counsel.
+
+<p align="center">
+  <img src="docs/screenshots/04-dreamer-alert.png" alt="Dreamer status acknowledgment alert" width="300">
+</p>
+
 ## What MoveSafe is
 
 - A relocation checklist

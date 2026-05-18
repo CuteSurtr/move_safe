@@ -41,6 +41,16 @@ struct ContentView: View {
             input.loadExample()
             input.acceptedDisclaimer = true
             path = [.builder]
+        } else if args.contains("--screenshot-dreamer-alert") {
+            input.loadExample()
+            input.acceptedDisclaimer = true
+            input.selectedProfileFlags.remove(.dreamer)
+            path = [.builder]
+            // Insert the flag after BuilderView mounts so its onChange handler
+            // fires and presents the alert for the screenshot.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                input.selectedProfileFlags.insert(.dreamer)
+            }
         }
     }
 }

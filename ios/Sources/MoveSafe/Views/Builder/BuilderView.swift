@@ -4,6 +4,7 @@ struct BuilderView: View {
     @EnvironmentObject private var input: BuilderInputStore
     @Binding var path: [Route]
     @State private var submitted: Bool = false
+    @State private var showDreamerAlert: Bool = false
 
     private var errors: [String] { input.validationErrors() }
     private var sameStateNotice: Bool {
@@ -40,6 +41,16 @@ struct BuilderView: View {
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Build checklist")
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: input.selectedProfileFlags.contains(.dreamer)) { wasOn, isOn in
+            if isOn && !wasOn {
+                showDreamerAlert = true
+            }
+        }
+        .alert("About Dreamer status", isPresented: $showDreamerAlert) {
+            Button("I understand") { }
+        } message: {
+            Text("Immigration status — including Dreamer / DACA status — can significantly affect driver's licenses and REAL ID, professional licensure (especially nursing and healthcare), in-state tuition, SSN-related requirements, and state tax filing. Rules vary by state and federal law and change frequently.\n\nMoveSafe is not a substitute for legal counsel. Consider consulting a licensed immigration attorney before relying on any state-by-state summary.")
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
