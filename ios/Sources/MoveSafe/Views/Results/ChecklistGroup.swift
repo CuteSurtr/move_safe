@@ -10,16 +10,16 @@ struct ChecklistGroup: View {
         if let category, !items.isEmpty {
             VStack(alignment: .leading, spacing: 10) {
                 HStack(alignment: .firstTextBaseline) {
-                    Text(category.name)
+                    Text(L.t(category.name))
                         .font(.headline)
                     Spacer()
-                    Text("\(items.count) \(items.count == 1 ? "item" : "items")")
+                    Text(String(format: L.t(items.count == 1 ? "%d item" : "%d items"), items.count))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
 
                 if category.isHighRiskCategory {
-                    Text("Do not assume rules from your origin state apply. Rules vary across state, local, and federal jurisdictions. Verify directly with official sources.")
+                    Text(L.t("Do not assume rules from your origin state apply. Rules vary across state, local, and federal jurisdictions. Verify directly with official sources."))
                         .font(.caption)
                         .foregroundStyle(.red)
                         .frame(maxWidth: .infinity, alignment: .leading)

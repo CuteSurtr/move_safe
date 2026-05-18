@@ -11,6 +11,8 @@ struct DisclaimerBanner: View {
         variant == .full ? Disclaimers.main : Disclaimers.short
     }
 
+    private var localizedMessage: String { L.t(message) }
+
     private var background: Color {
         switch tone {
         case .neutral: return Color.yellow.opacity(0.12)
@@ -38,7 +40,7 @@ struct DisclaimerBanner: View {
                 .imageScale(.small)
                 .foregroundStyle(foreground)
                 .padding(.top, 2)
-            Text(message)
+            Text(localizedMessage)
                 .font(.callout)
                 .foregroundStyle(foreground)
                 .multilineTextAlignment(.leading)
@@ -51,6 +53,6 @@ struct DisclaimerBanner: View {
                 .strokeBorder(border, lineWidth: 1)
         )
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Disclaimer. \(message)")
+        .accessibilityLabel(String(format: L.t("Disclaimer. %@"), localizedMessage))
     }
 }

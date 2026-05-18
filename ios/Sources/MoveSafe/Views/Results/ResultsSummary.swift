@@ -8,22 +8,31 @@ struct ResultsSummary: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("YOUR CHECKLIST")
+            Text(L.t("YOUR CHECKLIST"))
                 .font(.caption)
                 .fontWeight(.semibold)
                 .tracking(0.6)
                 .foregroundStyle(.tint)
-            Text("Moving from \(origin.name) to \(destination.name)")
+            Text(String(format: L.t("Moving from %1$@ to %2$@"), origin.name, destination.name))
                 .font(.title2)
                 .fontWeight(.semibold)
             HStack(spacing: 4) {
-                Text("Purpose:")
-                Text(purpose.name).fontWeight(.medium).foregroundStyle(.primary)
+                Text(L.t("Purpose:"))
+                Text(L.t(purpose.name)).fontWeight(.medium).foregroundStyle(.primary)
             }
             .font(.subheadline)
             .foregroundStyle(.secondary)
 
-            Text("\(totalItems) \(totalItems == 1 ? "topic" : "topics") to verify before moving. This checklist is not a legal conclusion.")
+            Text(
+                String(
+                    format: L.t(
+                        totalItems == 1
+                            ? "%d topic to verify before moving. This checklist is not a legal conclusion."
+                            : "%d topics to verify before moving. This checklist is not a legal conclusion."
+                    ),
+                    totalItems
+                )
+            )
                 .font(.footnote)
                 .foregroundStyle(.secondary)
         }

@@ -6,15 +6,15 @@ struct StaleSourceWarning: View {
     private var message: String? {
         switch status {
         case .reviewRecommended:
-            return "This source was checked more than 90 days ago. Review recommended."
+            return L.t("This source was checked more than 90 days ago. Review recommended.")
         case .possiblyOutdated:
-            return "This source has not been verified in more than six months. Check the official website before relying on it."
+            return L.t("This source has not been verified in more than six months. Check the official website before relying on it.")
         case .stale:
-            return "This source has not been verified in more than a year. Treat as stale and verify directly with the official source."
+            return L.t("This source has not been verified in more than a year. Treat as stale and verify directly with the official source.")
         case .placeholder:
-            return "Placeholder source. Replace with an official source before relying on this item."
+            return L.t("Placeholder source. Replace with an official source before relying on this item.")
         case .missing:
-            return "Official source needed before relying on this item."
+            return L.t("Official source needed before relying on this item.")
         case .current:
             return nil
         }

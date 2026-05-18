@@ -39,7 +39,7 @@ struct RiskBadge: View {
             Circle()
                 .fill(dotColor)
                 .frame(width: 6, height: 6)
-            Text(level.label)
+            Text(L.t(level.label))
                 .font(.caption)
                 .fontWeight(.medium)
         }
@@ -49,7 +49,7 @@ struct RiskBadge: View {
         .overlay(Capsule().strokeBorder(border, lineWidth: 1))
         .foregroundStyle(foreground)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Risk level: \(level.label)")
+        .accessibilityLabel(String(format: L.t("Risk level: %@"), L.t(level.label)))
     }
 }
 
@@ -59,7 +59,7 @@ struct JurisdictionBadge: View {
     let type: JurisdictionType
 
     var body: some View {
-        Text(type.label)
+        Text(L.t(type.label))
             .font(.caption)
             .fontWeight(.medium)
             .padding(.horizontal, 10)
@@ -67,7 +67,7 @@ struct JurisdictionBadge: View {
             .background(Color(.systemBackground), in: Capsule())
             .overlay(Capsule().strokeBorder(Color(.separator), lineWidth: 1))
             .foregroundStyle(.secondary)
-            .accessibilityLabel("Jurisdiction: \(type.label)")
+            .accessibilityLabel(String(format: L.t("Jurisdiction: %@"), L.t(type.label)))
     }
 }
 
@@ -91,7 +91,7 @@ struct SourceStatusBadge: View {
     }
 
     var body: some View {
-        Text(status.label)
+        Text(L.t(status.label))
             .font(.caption2)
             .fontWeight(.medium)
             .padding(.horizontal, 10)
@@ -104,7 +104,7 @@ struct SourceStatusBadge: View {
                 )
             )
             .foregroundStyle(color)
-            .accessibilityLabel("Source status: \(status.label)")
+            .accessibilityLabel(String(format: L.t("Source status: %@"), L.t(status.label)))
     }
 }
 

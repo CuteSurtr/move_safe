@@ -9,6 +9,7 @@ enum Route: Hashable {
 struct ContentView: View {
     @StateObject private var input = BuilderInputStore()
     @StateObject private var progress = ProgressStore()
+    @EnvironmentObject private var localeStore: LocaleStore
     @State private var path: [Route] = []
 
     var body: some View {
@@ -31,8 +32,19 @@ struct ContentView: View {
     /// Deep-links the app to a specific screen when launched with a
     /// `--screenshot-*` argument. Used by tooling that captures simulator
     /// screenshots for the README - no effect under normal launch.
+    ///
+    /// `--screenshot-lang-es` (combinable with the screen flags) forces the
+    /// app to render in Spanish regardless of device locale, so screenshot
+    /// runs are reproducible.
     private func applyScreenshotLaunchArgs() {
         let args = ProcessInfo.processInfo.arguments
+        if args.contains("--screenshot-lang-es") {
+            localeStore.preference = .override(.spanish)
+            L.currentLanguage = .spanish
+        } else if args.contains("--screenshot-lang-en") {
+            localeStore.preference = .override(.english)
+            L.currentLanguage = .english
+        }
         if args.contains("--screenshot-results") {
             input.loadExample()
             input.acceptedDisclaimer = true

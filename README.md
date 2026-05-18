@@ -26,6 +26,14 @@ The example below is California → Maryland for nursing school.
   <img src="docs/screenshots/06-visa-alert.png" alt="Nonimmigrant visa holder status acknowledgment alert" width="260">
 </p>
 
+**Spanish localization (es-419).** The iOS app is fully localized to neutral US Spanish. It follows the device language by default and offers an in-app override in Settings ("Auto-detected" / "English" / "Español"). All UI chrome, the 49 checklist items, 92 source titles, 13 categories, 10 purposes, enum labels, disclaimers, engine warnings, and the share-sheet export honor the active language. US state names stay in English (proper nouns) and so do US agency abbreviations (USCIS, IRS, SEVIS, etc.). The same forbidden-phrase CI lint runs in both English and Spanish.
+
+<p align="center">
+  <img src="docs/screenshots/es/01-landing.png" alt="Pantalla de inicio en español" width="260">
+  <img src="docs/screenshots/es/03-results.png" alt="Pantalla de resultados en español" width="260">
+  <img src="docs/screenshots/es/06-visa-alert.png" alt="Aviso de estatus de visa en español" width="260">
+</p>
+
 ## What MoveSafe is
 
 - A relocation checklist

@@ -1,0 +1,56 @@
+import Foundation
+
+/// Translations for categories + purposes. US state names are NOT
+/// translated - they are proper nouns used as identifiers and on
+/// official agency pages.
+/// Generated from /tmp/movesafe-i18n/meta_es.json on 2026-05-18.
+enum MetaTranslations {
+    static let spanish: [String: String] = [
+        "Auto insurance": "Seguro de auto",
+        "Board of nursing requirements, compact licenses, clinical placement.": "Requisitos de la junta de enfermería, licencias del pacto y prácticas clínicas.",
+        "Categories where rules vary substantially. Verify directly with official sources.": "Categorías en las que las normas varían sustancialmente. Verifique directamente con fuentes oficiales.",
+        "Clinical placement": "Práctica clínica",
+        "Driver's license": "Licencia de conducir",
+        "Driving across one or more state lines for travel.": "Conducir cruzando una o más líneas estatales para viajar.",
+        "Employment paperwork": "Documentación de empleo",
+        "Endorsement, reciprocity, temporary practice, and continuing education.": "Endoso, reciprocidad, práctica temporal y educación continua.",
+        "Establishing a new permanent residence in the destination state.": "Establecer una nueva residencia permanente en el estado de destino.",
+        "Exploring options. Receive a broad overview checklist.": "Explorando opciones. Reciba una lista de verificación con un panorama general.",
+        "Factors that may affect residency for tuition, taxes, licensing, benefits.": "Factores que pueden afectar la residencia para matrícula, impuestos, licenciatura y beneficios.",
+        "Family move": "Mudanza familiar",
+        "Healthcare access / insurance": "Acceso a la salud / seguro médico",
+        "High-risk items to verify separately": "Elementos de alto riesgo a verificar por separado",
+        "Housing / renter basics": "Vivienda / aspectos básicos para inquilinos",
+        "Insurance networks, student health, prescriptions, primary care access.": "Redes de seguros, salud estudiantil, recetas y acceso a atención primaria.",
+        "Internship": "Pasantía",
+        "Lease terms, security deposits, notice periods, and tenant protections.": "Términos del contrato, depósitos de seguridad, plazos de aviso y protecciones para inquilinos.",
+        "License transfer, deadlines, documents, and REAL ID awareness.": "Transferencia de licencia, plazos, documentos y conocimiento sobre REAL ID.",
+        "Minimum coverage, state-specific rules, and policy address updates.": "Cobertura mínima, normas específicas del estado y actualización de la dirección en la póliza.",
+        "Moving for school": "Mudanza por estudios",
+        "Moving for work": "Mudanza por trabajo",
+        "Moving to another state for clinical rotations, externships, or supervised practice.": "Mudanza a otro estado para rotaciones clínicas, pasantías clínicas o práctica supervisada.",
+        "Not sure yet": "Aún no estoy seguro",
+        "Nursing / healthcare licensure": "Licenciatura de enfermería / salud",
+        "Nursing school / healthcare training": "Escuela de enfermería / capacitación en salud",
+        "Permanent relocation": "Reubicación permanente",
+        "Pets": "Mascotas",
+        "Professional license transfer": "Transferencia de licencia profesional",
+        "Registration deadlines, inspection, emissions, title, and plate rules.": "Plazos de registro, inspección, emisiones, título y normas de placas.",
+        "Relocating for a job or new employer.": "Reubicación por un empleo o un nuevo empleador.",
+        "Relocating for a nursing or healthcare program (ABSN, MEPN, MSN, allied health, etc.).": "Reubicación para un programa de enfermería o de salud (ABSN, MEPN, MSN, salud afín, etc.).",
+        "Relocating to attend an undergraduate or graduate program.": "Reubicación para asistir a un programa de pregrado o posgrado.",
+        "Relocating with family members or dependents.": "Reubicación con familiares o dependientes.",
+        "Road trip": "Viaje por carretera",
+        "School residency classification, immunization, student insurance, housing.": "Clasificación de residencia escolar, inmunización, seguro estudiantil y vivienda.",
+        "Short-to-medium term internship or co-op in another state.": "Pasantía o programa cooperativo de corto a mediano plazo en otro estado.",
+        "State filing requirements, part-year residency, remote work implications.": "Requisitos de presentación estatal, residencia parcial e implicaciones del trabajo a distancia.",
+        "State residency basics": "Aspectos básicos de residencia estatal",
+        "State tax withholding, labor law basics, remote work considerations.": "Retención de impuestos estatales, aspectos básicos del derecho laboral y consideraciones de trabajo a distancia.",
+        "Staying in another state temporarily without intending to become a resident.": "Estancia temporal en otro estado sin la intención de convertirse en residente.",
+        "Student relocation": "Reubicación estudiantil",
+        "Taxes / state filing awareness": "Impuestos / conocimiento de presentación estatal",
+        "Temporary stay": "Estancia temporal",
+        "Vaccination, licensing, breed restrictions, housing pet policies.": "Vacunación, licencias, restricciones de raza y políticas de mascotas en la vivienda.",
+        "Vehicle registration": "Registro de vehículo",
+    ]
+}

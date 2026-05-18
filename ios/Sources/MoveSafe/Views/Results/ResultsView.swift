@@ -19,7 +19,7 @@ struct ResultsView: View {
                 .padding(.vertical, 16)
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle("Checklist")
+        .navigationTitle(L.t("Checklist"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -29,7 +29,7 @@ struct ResultsView: View {
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
-                    .accessibilityLabel("Share checklist")
+                    .accessibilityLabel(L.t("Share checklist"))
                 }
             }
         }
@@ -46,10 +46,10 @@ struct ResultsView: View {
         switch output {
         case .failure(let err):
             EmptyState(
-                title: "Could not generate checklist",
+                title: L.t("Could not generate checklist"),
                 description: err.localizedDescription
             ) {
-                Button("Back to builder") { path.removeLast() }
+                Button(L.t("Back to builder")) { path.removeLast() }
                     .buttonStyle(.borderedProminent)
             }
         case .success(let result):
@@ -78,21 +78,21 @@ struct ResultsView: View {
 
             // Notes / warnings.
             VStack(alignment: .leading, spacing: 8) {
-                Text(Disclaimers.resultsIntro)
+                Text(L.t(Disclaimers.resultsIntro))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 VStack(alignment: .leading, spacing: 4) {
                     ForEach(result.warnings, id: \.self) { w in
                         HStack(alignment: .top, spacing: 6) {
                             Text("•")
-                            Text(w)
+                            Text(L.t(w))
                         }
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     }
                     HStack(alignment: .top, spacing: 6) {
                         Text("•")
-                        Text(Disclaimers.coverageCaveat)
+                        Text(L.t(Disclaimers.coverageCaveat))
                     }
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -111,8 +111,8 @@ struct ResultsView: View {
 
             if filteredGrouped.isEmpty {
                 EmptyState(
-                    title: "No items match your filters",
-                    description: "Try clearing risk filters or the high-risk / stale-source toggles."
+                    title: L.t("No items match your filters"),
+                    description: L.t("Try clearing risk filters or the high-risk / stale-source toggles.")
                 )
             } else {
                 VStack(spacing: 18) {
@@ -128,7 +128,7 @@ struct ResultsView: View {
                 Button {
                     path.removeLast()
                 } label: {
-                    Text("Edit selections")
+                    Text(L.t("Edit selections"))
                         .font(.body)
                         .fontWeight(.medium)
                         .frame(maxWidth: .infinity)
@@ -139,7 +139,7 @@ struct ResultsView: View {
                 Button {
                     path.removeAll()
                 } label: {
-                    Text("Back to home")
+                    Text(L.t("Back to home"))
                         .font(.body)
                         .fontWeight(.medium)
                         .frame(maxWidth: .infinity)
@@ -156,22 +156,22 @@ struct ResultsView: View {
     private func progressBar(completed: Int, total: Int, visibleIds: [String]) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("Verified: \(completed) of \(total)")
+                Text(String(format: L.t("Verified: %1$d of %2$d"), completed, total))
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 Spacer()
                 if completed > 0 {
-                    Button("Reset progress") {
+                    Button(L.t("Reset progress")) {
                         progress.clear(itemIds: visibleIds)
                     }
                     .font(.caption)
-                    .accessibilityHint("Clears the verified state on items currently shown.")
+                    .accessibilityHint(L.t("Clears the verified state on items currently shown."))
                 }
             }
             ProgressView(value: total == 0 ? 0 : Double(completed) / Double(total))
                 .tint(.green)
-                .accessibilityLabel("Verification progress")
-                .accessibilityValue("\(completed) of \(total) items verified")
+                .accessibilityLabel(L.t("Verification progress"))
+                .accessibilityValue(String(format: L.t("%1$d of %2$d items verified"), completed, total))
         }
         .padding(12)
         .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -184,13 +184,13 @@ struct ResultsView: View {
     @ViewBuilder
     private func sourcesSection(_ uniqueSources: [SourceWithStatus]) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Sources referenced in this checklist")
+            Text(L.t("Sources referenced in this checklist"))
                 .font(.headline)
-            Text("MoveSafe prefers official agency sources. Placeholder entries should be replaced with verified URLs before production use.")
+            Text(L.t("MoveSafe prefers official agency sources. Placeholder entries should be replaced with verified URLs before production use."))
                 .font(.caption)
                 .foregroundStyle(.secondary)
             if uniqueSources.isEmpty {
-                Text("No sources are attached to the items in this view.")
+                Text(L.t("No sources are attached to the items in this view."))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {

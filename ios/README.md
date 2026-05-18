@@ -61,6 +61,21 @@ Each item lists 3-10 verified `.gov` source URLs. The dates on bound generic sou
 - **Share**: top-right toolbar button on Results opens the iOS share sheet with a plain-text export of the checklist (title, items, what-to-verify, official source URLs, full disclaimer). Filters and the share sheet honor the current visible filtered view.
 - **Filters**: by risk level, high-risk only, stale/placeholder sources only.
 - **50 states**: every US state plus DC is selectable as origin or destination.
+- **Localization**: ships in English and neutral US Spanish (es-419). Auto-detects the device language; user can override via Settings (gear icon, top-right of Landing).
+
+## Localization
+
+The app uses a custom translation layer (`Sources/MoveSafe/Localization/`) keyed by English source text. `L.t("...")` at every UI call site looks up the current effective language and returns the Spanish translation if available, falling back to English otherwise.
+
+- `LocaleStore` is the source of truth for the active language. Reads from `Locale.current` by default; user override is persisted to `UserDefaults`.
+- `TranslationsData_UI.swift` holds the UI chrome strings (button labels, screen titles, banners, alerts) - hand-curated.
+- `TranslationsData_Enums.swift` holds RiskLevel/JurisdictionType/SourceType/SourceStatus/ProfileFlag labels and the four Disclaimers strings.
+- `TranslationsData_Meta.swift`, `TranslationsData_Items.swift`, `TranslationsData_Sources.swift` are generated from the corresponding `meta_es.json` / `items_es.json` / `sources_es.json` artifacts (produced once by a translation pass; re-run the merge script to regenerate).
+- US state names stay in English (proper nouns and identifiers).
+- US agency abbreviations (USCIS, IRS, SEVIS, DSO, REAL ID, etc.) stay in English in both locales, consistent with how Spanish-language US-immigration content is typically written.
+- Safe-copy rules apply in both languages; the CI lint scans for forbidden cognates (`ilegal`, `permitido`, `prohibido`, `garantizado`, `para evitar sanciones/multas`).
+
+To add a third language later, add a new case to `AppLanguage`, drop in `TranslationsData_*_<lang>` tables, extend `Translations.swift`'s merge, and tighten the CI safe-copy lint with that language's forbidden cognates.
 
 ## Notes for editors
 

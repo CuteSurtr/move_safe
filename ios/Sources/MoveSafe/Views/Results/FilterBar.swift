@@ -13,7 +13,7 @@ struct FilterBar: View {
         VStack(alignment: .leading, spacing: 12) {
             // Risk-level chips.
             VStack(alignment: .leading, spacing: 8) {
-                Text("RISK")
+                Text(L.t("RISK"))
                     .font(.caption)
                     .fontWeight(.semibold)
                     .tracking(0.6)
@@ -25,7 +25,7 @@ struct FilterBar: View {
                             Button {
                                 toggle(level)
                             } label: {
-                                Text(level.label)
+                                Text(L.t(level.label))
                                     .font(.caption)
                                     .fontWeight(.medium)
                                     .padding(.horizontal, 12)
@@ -51,8 +51,8 @@ struct FilterBar: View {
 
             // Toggles.
             VStack(alignment: .leading, spacing: 8) {
-                Toggle("High-risk only", isOn: $filters.highRiskOnly)
-                Toggle("Stale or placeholder sources only", isOn: $filters.staleOnly)
+                Toggle(L.t("High-risk only"), isOn: $filters.highRiskOnly)
+                Toggle(L.t("Stale or placeholder sources only"), isOn: $filters.staleOnly)
             }
             .font(.subheadline)
             .toggleStyle(.switch)

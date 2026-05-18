@@ -34,7 +34,7 @@ struct ChecklistCard: View {
                     .padding(14)
             }
             .buttonStyle(.plain)
-            .accessibilityHint(isExpanded ? "Tap to collapse" : "Tap to expand")
+            .accessibilityHint(L.t(isExpanded ? "Tap to collapse" : "Tap to expand"))
             .accessibilityAddTraits(.isButton)
 
             if isExpanded {
@@ -66,23 +66,23 @@ struct ChecklistCard: View {
             }
             .buttonStyle(.plain)
             .padding(.top, 2)
-            .accessibilityLabel(isCompleted ? "Mark as not verified" : "Mark as verified")
+            .accessibilityLabel(L.t(isCompleted ? "Mark as not verified" : "Mark as verified"))
 
             VStack(alignment: .leading, spacing: 8) {
                 FlowLayout(hSpacing: 6, vSpacing: 6) {
                     RiskBadge(level: entry.item.riskLevel)
                     JurisdictionBadge(type: entry.item.jurisdictionType)
                     if let category {
-                        Text(category.name)
+                        Text(L.t(category.name))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                 }
-                Text(entry.item.title)
+                Text(L.t(entry.item.title))
                     .font(.headline)
                     .strikethrough(isCompleted, color: .secondary)
                     .multilineTextAlignment(.leading)
-                Text(entry.item.description)
+                Text(L.t(entry.item.description))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.leading)
@@ -100,17 +100,17 @@ struct ChecklistCard: View {
     @ViewBuilder private var expandedDetails: some View {
         VStack(alignment: .leading, spacing: 14) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("WHY THIS MATTERS")
+                Text(L.t("WHY THIS MATTERS"))
                     .font(.caption2)
                     .fontWeight(.semibold)
                     .tracking(0.6)
                     .foregroundStyle(.secondary)
-                Text(entry.item.whyItMatters)
+                Text(L.t(entry.item.whyItMatters))
                     .font(.subheadline)
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text("WHAT TO VERIFY")
+                Text(L.t("WHAT TO VERIFY"))
                     .font(.caption2)
                     .fontWeight(.semibold)
                     .tracking(0.6)
@@ -119,7 +119,7 @@ struct ChecklistCard: View {
                     ForEach(entry.item.whatToVerify, id: \.self) { point in
                         HStack(alignment: .top, spacing: 6) {
                             Text("•")
-                            Text(point)
+                            Text(L.t(point))
                         }
                         .font(.subheadline)
                     }
@@ -127,13 +127,13 @@ struct ChecklistCard: View {
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("OFFICIAL SOURCES")
+                Text(L.t("OFFICIAL SOURCES"))
                     .font(.caption2)
                     .fontWeight(.semibold)
                     .tracking(0.6)
                     .foregroundStyle(.secondary)
                 if entry.sources.isEmpty {
-                    Text("Official source needed before relying on this item.")
+                    Text(L.t("Official source needed before relying on this item."))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .padding(10)
@@ -156,12 +156,12 @@ struct ChecklistCard: View {
             }
 
             if let notes = entry.item.safeLanguageNotes {
-                Text("Note for editors: \(notes)")
+                Text(String(format: L.t("Note for editors: %@"), L.t(notes)))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
-            Text("General information only. Verify with the relevant official source. Not legal advice.")
+            Text(L.t("General information only. Verify with the relevant official source. Not legal advice."))
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

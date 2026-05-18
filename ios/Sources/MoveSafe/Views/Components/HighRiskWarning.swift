@@ -3,10 +3,10 @@ import SwiftUI
 struct HighRiskWarning: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("High-risk categories require separate verification.")
+            Text(L.t("High-risk categories require separate verification."))
                 .font(.subheadline)
                 .fontWeight(.semibold)
-            Text("Some items may be regulated differently across state lines and may involve state law, local ordinances, federal law, or agency rules. MoveSafe does not determine whether possession, transportation, or use is lawful in any specific situation. Verify directly with official sources and consult a licensed attorney or relevant agency if needed.")
+            Text(L.t("Some items may be regulated differently across state lines and may involve state law, local ordinances, federal law, or agency rules. MoveSafe does not determine whether possession, transportation, or use is lawful in any specific situation. Verify directly with official sources and consult a licensed attorney or relevant agency if needed."))
                 .font(.callout)
         }
         .foregroundStyle(.red)
@@ -18,6 +18,6 @@ struct HighRiskWarning: View {
                 .strokeBorder(Color.red.opacity(0.35), lineWidth: 1)
         )
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("High-risk warning. High-risk categories require separate verification.")
+        .accessibilityLabel(L.t("High-risk warning. High-risk categories require separate verification."))
     }
 }

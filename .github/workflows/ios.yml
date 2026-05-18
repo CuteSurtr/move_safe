@@ -122,31 +122,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fail if iOS sources contain forbidden phrases
+      - name: Fail if iOS sources contain forbidden phrases (English + Spanish)
         run: |
           # The product's safety philosophy forbids legal-conclusion language
           # in user-facing copy. This lint enforces a high-confidence subset
           # of the forbidden phrases listed in
-          # ios/Sources/MoveSafe/Utils/SafeCopy.swift. We scope to seed data
-          # and views, and exclude SafeCopy.swift itself (it documents the
-          # avoid list by design).
+          # ios/Sources/MoveSafe/Utils/SafeCopy.swift. We scope to seed data,
+          # views, and translation tables (which carry user-facing strings),
+          # and exclude SafeCopy.swift itself (it documents the avoid list
+          # by design).
           #
-          # Skipped from the regex: "you can" / "you cannot" -- both have
+          # Skipped from the EN regex: "you can" / "you cannot" -- both have
           # legitimate UX hint uses (e.g., "you can change these later") that
           # would false-positive.
-          PHRASES='\b(illegal|permitted|prohibited|guaranteed)\b|avoid penalties'
+          #
+          # Spanish equivalents are tuned to the same intent: avoid words that
+          # imply a legal conclusion. "puedes/no puedes" intentionally excluded
+          # for the same UX-hint reason as the English "you can".
+          EN='\b(illegal|permitted|prohibited|guaranteed)\b|avoid penalties'
+          ES='\b(ilegal|permitido|prohibido|garantizado)\b|para evitar (sanciones|multas)'
+          PHRASES="$EN|$ES"
           if MATCHES=$(git grep -nEiI -- "$PHRASES" \
                 ios/Sources/MoveSafe/Data \
                 ios/Sources/MoveSafe/Views \
+                ios/Sources/MoveSafe/Localization \
                 ':!ios/Sources/MoveSafe/Utils/SafeCopy.swift'); then
-            echo "::error::Forbidden safe-copy phrases found in iOS sources:"
+            echo "::error::Forbidden safe-copy phrases found in iOS sources (English or Spanish):"
             printf '%s\n' "$MATCHES"
             echo ""
-            echo "If a match is a legitimate use, rephrase using 'verify', 'check',"
-            echo "'may apply', 'rules differ', or 'do not assume' instead."
+            echo "If a match is a legitimate use, rephrase using 'verify' / 'check' /"
+            echo "'may apply' / 'rules differ' / 'do not assume' (or their Spanish equivalents:"
+            echo "'verificar' / 'consultar' / 'puede aplicar' / 'las normas difieren' / 'no asuma')."
             exit 1
           fi
-          echo "OK: no forbidden safe-copy phrases."
+          echo "OK: no forbidden safe-copy phrases in English or Spanish."
 
   schema-integrity:
     name: Schema integrity (iOS seed data)

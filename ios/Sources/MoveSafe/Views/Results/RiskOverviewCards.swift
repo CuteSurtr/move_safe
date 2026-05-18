@@ -37,10 +37,10 @@ private struct RiskOverviewCard: View {
                 .fontWeight(.semibold)
                 .foregroundStyle(accent)
                 .monospacedDigit()
-            Text(level.label)
+            Text(L.t(level.label))
                 .font(.subheadline)
                 .fontWeight(.medium)
-            Text(level.description)
+            Text(L.t(level.description))
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .lineLimit(3)
@@ -53,6 +53,6 @@ private struct RiskOverviewCard: View {
                 .strokeBorder(accent.opacity(0.30), lineWidth: 1)
         )
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(level.label): \(count) topics")
+        .accessibilityLabel(String(format: L.t("%1$@: %2$d topics"), L.t(level.label), count))
     }
 }
