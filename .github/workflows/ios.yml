@@ -74,3 +74,104 @@ jobs:
             exit 1
           fi
           echo "OK: no em dashes."
+
+  safe-copy-lint:
+    name: Safe-copy lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fail if iOS sources contain forbidden phrases
+        run: |
+          # The product's safety philosophy forbids legal-conclusion language
+          # in user-facing copy. This lint enforces a high-confidence subset
+          # of the forbidden phrases listed in
+          # ios/Sources/MoveSafe/Utils/SafeCopy.swift. We scope to seed data
+          # and views, and exclude SafeCopy.swift itself (it documents the
+          # avoid list by design).
+          #
+          # Skipped from the regex: "you can" / "you cannot" -- both have
+          # legitimate UX hint uses (e.g., "you can change these later") that
+          # would false-positive.
+          PHRASES='\b(illegal|permitted|prohibited|guaranteed)\b|avoid penalties'
+          if MATCHES=$(git grep -nEiI -- "$PHRASES" \
+                ios/Sources/MoveSafe/Data \
+                ios/Sources/MoveSafe/Views \
+                ':!ios/Sources/MoveSafe/Utils/SafeCopy.swift'); then
+            echo "::error::Forbidden safe-copy phrases found in iOS sources:"
+            printf '%s\n' "$MATCHES"
+            echo ""
+            echo "If a match is a legitimate use, rephrase using 'verify', 'check',"
+            echo "'may apply', 'rules differ', or 'do not assume' instead."
+            exit 1
+          fi
+          echo "OK: no forbidden safe-copy phrases."
+
+  schema-integrity:
+    name: Schema integrity (iOS seed data)
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify ChecklistItem references resolve
+        run: |
+          python3 <<'PY'
+          import re, sys, pathlib
+
+          ROOT = pathlib.Path('ios/Sources/MoveSafe/Data')
+
+          def ids(path: pathlib.Path, prefix: str) -> set[str]:
+              text = path.read_text()
+              return set(re.findall(rf'id:\s*"({re.escape(prefix)}[^"]+)"', text))
+
+          defined_categories = ids(ROOT / 'Categories.swift',    'cat-')
+          defined_purposes   = ids(ROOT / 'Purposes.swift',       'purpose-')
+          defined_sources    = ids(ROOT / 'Sources.swift',        'src-')
+
+          items_text = (ROOT / 'ChecklistItems.swift').read_text()
+          ref_categories = set(re.findall(r'categoryId:\s*"([^"]+)"',    items_text))
+          # Anything starting with "purpose-" or "src-" inside ChecklistItems.swift
+          # is a reference to a Purpose / Source. Items aren't created here so
+          # this won't pick up their own ids.
+          ref_purposes   = set(re.findall(r'"(purpose-[^"]+)"', items_text))
+          ref_sources    = set(re.findall(r'"(src-[^"]+)"',     items_text))
+
+          missing_categories = ref_categories - defined_categories
+          missing_purposes   = ref_purposes   - defined_purposes
+          missing_sources    = ref_sources    - defined_sources
+
+          errors = []
+          if missing_categories:
+              errors.append(f"Unknown categoryId values: {sorted(missing_categories)}")
+          if missing_purposes:
+              errors.append(f"Unknown purpose IDs in appliesToPurposes: {sorted(missing_purposes)}")
+          if missing_sources:
+              errors.append(f"Unknown source IDs in sourceIds: {sorted(missing_sources)}")
+
+          # Also report unused definitions as warnings (not failures).
+          unused_categories = defined_categories - ref_categories
+          unused_sources    = defined_sources    - ref_sources
+          unused_purposes   = defined_purposes   - ref_purposes
+
+          print(f"Defined: {len(defined_categories)} categories, "
+                f"{len(defined_purposes)} purposes, "
+                f"{len(defined_sources)} sources")
+          print(f"Referenced by items: {len(ref_categories)} categories, "
+                f"{len(ref_purposes)} purposes, "
+                f"{len(ref_sources)} sources")
+          if unused_categories:
+              print(f"::warning::Unused categories: {sorted(unused_categories)}")
+          if unused_purposes:
+              print(f"::warning::Unused purposes:   {sorted(unused_purposes)}")
+          if unused_sources:
+              print(f"::warning::Unused sources:    {sorted(unused_sources)}")
+
+          if errors:
+              print("::error::Schema integrity check failed")
+              for e in errors:
+                  print(e)
+              sys.exit(1)
+          print("OK: all ChecklistItem references resolve.")
+          PY
