@@ -137,7 +137,7 @@ struct ChecklistItemWithSources: Identifiable, Hashable {
 }
 
 /// A source plus its computed status at a given reference date. `resolvedUrl`
-/// is the URL to actually display — either the source's literal `url` or, when
+/// is the URL to actually display - either the source's literal `url` or, when
 /// `source.stateUrlBinding` is set, the matching URL pulled from the origin /
 /// destination state.
 struct SourceWithStatus: Identifiable, Hashable {

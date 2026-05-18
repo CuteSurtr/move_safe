@@ -51,7 +51,7 @@ enum SafeCopy {
     ]
 
     /// Lightweight dev helper. Returns avoidPhrases present in given text.
-    /// Not enforced at runtime — intended as a manual review aid during seeding.
+    /// Not enforced at runtime - intended as a manual review aid during seeding.
     static func findUnsafePhrases(in text: String) -> [String] {
         let lower = text.lowercased()
         return avoidPhrases.filter { lower.contains($0) }

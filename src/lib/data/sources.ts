@@ -87,7 +87,7 @@ export const sources: Source[] = [
   },
   {
     id: "src-destination-attorney-general",
-    title: "Official destination state attorney general — tenant resources",
+    title: "Official destination state attorney general - tenant resources",
     url: "#",
     sourceType: "PLACEHOLDER",
     jurisdictionType: "STATE_LAW",
@@ -116,7 +116,7 @@ export const sources: Source[] = [
   },
   {
     id: "src-destination-agriculture-pets",
-    title: "Official destination state department of agriculture — pet entry",
+    title: "Official destination state department of agriculture - pet entry",
     url: "#",
     sourceType: "PLACEHOLDER",
     jurisdictionType: "AGENCY_RULE",

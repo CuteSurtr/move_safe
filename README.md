@@ -1,6 +1,6 @@
 # MoveSafe
 
-A source-first, state-to-state relocation checklist for the United States — available as a web app (Vite + React) and a native iOS app (SwiftUI).
+A source-first, state-to-state relocation checklist for the United States - available as a web app (Vite + React) and a native iOS app (SwiftUI).
 
 MoveSafe helps users understand what legal, administrative, licensing, and practical topics they should **verify** when moving across state lines, traveling, or temporarily staying in another state.
 
@@ -11,12 +11,12 @@ MoveSafe helps users understand what legal, administrative, licensing, and pract
 The example below is California → Maryland for nursing school.
 
 <p align="center">
-  <img src="docs/screenshots/01-landing.png" alt="Landing screen — hero, primary CTA, How it works" width="260">
-  <img src="docs/screenshots/02-builder.png" alt="Builder screen — pre-filled origin / destination / purpose with categories selected" width="260">
-  <img src="docs/screenshots/03-results.png" alt="Results screen — header, disclaimer, warnings, risk overview cards" width="260">
+  <img src="docs/screenshots/01-landing.png" alt="Landing screen - hero, primary CTA, How it works" width="260">
+  <img src="docs/screenshots/02-builder.png" alt="Builder screen - pre-filled origin / destination / purpose with categories selected" width="260">
+  <img src="docs/screenshots/03-results.png" alt="Results screen - header, disclaimer, warnings, risk overview cards" width="260">
 </p>
 
-**Safety highlights — immigration-status acknowledgments.** When a user ticks "I'm a Dreamer (DACA / similar)" or "I'm a green card holder (LPR)" in the optional profile flags, MoveSafe immediately presents a status-specific alert reminding them that the affected areas (driver's licenses & REAL ID, professional licensure, in-state tuition / school residency, Medicaid and marketplace eligibility, state tax filing, voter-registration prompts at the DMV) vary by state and federal law — and that this platform is not a substitute for legal counsel. Each alert fires only on the false → true transition of its flag, so users who already acknowledged it don't get re-prompted on every launch.
+**Safety highlights - immigration-status acknowledgments.** When a user ticks "I'm a Dreamer (DACA / similar)" or "I'm a green card holder (LPR)" in the optional profile flags, MoveSafe immediately presents a status-specific alert reminding them that the affected areas (driver's licenses & REAL ID, professional licensure, in-state tuition / school residency, Medicaid and marketplace eligibility, state tax filing, voter-registration prompts at the DMV) vary by state and federal law - and that this platform is not a substitute for legal counsel. Each alert fires only on the false → true transition of its flag, so users who already acknowledged it don't get re-prompted on every launch.
 
 <p align="center">
   <img src="docs/screenshots/04-dreamer-alert.png" alt="Dreamer status acknowledgment alert" width="260">
@@ -47,7 +47,7 @@ MoveSafe is intentionally structured to avoid drawing legal conclusions. Its cor
 2. **No personalized legal advice.** The app does not take detailed facts about a user's situation and tell them whether a specific act is lawful.
 3. **Source-first design.** Every checklist item is linked to an official source (or a clearly-labeled placeholder).
 4. **Staleness warnings.** Sources are tagged with a `lastChecked` date and displayed with one of: Recently verified, Review recommended, Possibly outdated, Stale source, Placeholder source, Missing source.
-5. **High-risk categories get "Do not assume" treatment.** For firearms, controlled substances, prescription transport, and similar categories, MoveSafe does not summarize rules — it only flags the topic for separate verification.
+5. **High-risk categories get "Do not assume" treatment.** For firearms, controlled substances, prescription transport, and similar categories, MoveSafe does not summarize rules - it only flags the topic for separate verification.
 6. **No AI legal chatbot.** AI assistance is reserved for internal admin review tasks, not user-facing legal Q&A.
 7. **Disclaimers are visible** on every page.
 
@@ -56,16 +56,16 @@ The full safe-copy rules are documented in [`src/lib/utils/safeCopy.ts`](src/lib
 ## Repository layout
 
 ```
-/                       — Vite + React web app
-  src/                  — Web source code
+/                       - Vite + React web app
+  src/                  - Web source code
   index.html, package.json, vite.config.ts, ...
-  README.md             — This file
+  README.md             - This file
 
-ios/                    — Native SwiftUI iOS app
-  README.md             — iOS-specific build instructions
-  project.yml           — xcodegen config (the .xcodeproj is generated, not committed)
-  Sources/MoveSafe/     — Swift source code
-  research/             — Verified-URL JSON records
+ios/                    - Native SwiftUI iOS app
+  README.md             - iOS-specific build instructions
+  project.yml           - xcodegen config (the .xcodeproj is generated, not committed)
+  Sources/MoveSafe/     - Swift source code
+  research/             - Verified-URL JSON records
 ```
 
 Both implementations share the same data model, safe-copy rules, and seed data. The iOS app additionally implements:
@@ -75,7 +75,7 @@ Both implementations share the same data model, safe-copy rules, and seed data. 
 - iOS share sheet export of the checklist as plain text
 - iOS-native filters, navigation, and dark mode
 
-## Web app — run locally
+## Web app - run locally
 
 ```bash
 npm install
@@ -86,11 +86,11 @@ Open the URL Vite prints (typically `http://localhost:5173`). Click **View examp
 
 Other scripts:
 
-- `npm run build` — type-check and build for production
-- `npm run preview` — preview the production build
-- `npm run lint` — TypeScript type check (no emit)
+- `npm run build` - type-check and build for production
+- `npm run preview` - preview the production build
+- `npm run lint` - TypeScript type check (no emit)
 
-## iOS app — run locally
+## iOS app - run locally
 
 Requires macOS with Xcode 15+.
 
@@ -113,7 +113,7 @@ All 50 US states + DC are selectable. Each entry carries up to five verified age
 - attorney general / tenant resources
 - board of nursing
 
-**246 of 255 URL slots have been verified** against the live web (HEAD/GET on `.gov`/`.us`/official non-gov agency domains, redirects followed). The remaining 9 are documented placeholders — for example, Hawaii has no state-wide DMV because motor vehicle services are county-administered, and a handful of state nursing boards returned DNS errors on the verification run and need re-checking. The full research record, including per-placeholder reasons, is at [`ios/research/state_urls.json`](ios/research/state_urls.json).
+**246 of 255 URL slots have been verified** against the live web (HEAD/GET on `.gov`/`.us`/official non-gov agency domains, redirects followed). The remaining 9 are documented placeholders - for example, Hawaii has no state-wide DMV because motor vehicle services are county-administered, and a handful of state nursing boards returned DNS errors on the verification run and need re-checking. The full research record, including per-placeholder reasons, is at [`ios/research/state_urls.json`](ios/research/state_urls.json).
 
 Where the engine resolves a generic source (e.g. "Destination state board of nursing") against a state's actual URL, the source surfaces in the UI as **Recently verified** with a green badge; placeholders continue to show the dashed **Placeholder source** badge.
 
@@ -121,11 +121,11 @@ Where the engine resolves a generic source (e.g. "Destination state board of nur
 
 Core types (web) live in [`src/lib/types.ts`](src/lib/types.ts); iOS mirrors them in [`ios/Sources/MoveSafe/Models/Models.swift`](ios/Sources/MoveSafe/Models/Models.swift).
 
-- `State` (`USState` on iOS) — id, name, abbreviation, slug, agency URL fields
-- `Purpose` — id, name, slug, description
-- `Category` — id, name, slug, defaultRiskLevel, isHighRiskCategory, sortOrder
-- `Source` — id, title, url, sourceType, jurisdictionType, lastChecked, status, isOfficial, notes, **stateUrlBinding** (iOS — resolves URL against the origin/destination state at engine time)
-- `ChecklistItem` — id, title, categoryId, description, whyItMatters, whatToVerify, riskLevel, jurisdictionType, appliesToPurposes, appliesToProfileFlags, sourceIds, isHighRisk, …
+- `State` (`USState` on iOS) - id, name, abbreviation, slug, agency URL fields
+- `Purpose` - id, name, slug, description
+- `Category` - id, name, slug, defaultRiskLevel, isHighRiskCategory, sortOrder
+- `Source` - id, title, url, sourceType, jurisdictionType, lastChecked, status, isOfficial, notes, **stateUrlBinding** (iOS - resolves URL against the origin/destination state at engine time)
+- `ChecklistItem` - id, title, categoryId, description, whyItMatters, whatToVerify, riskLevel, jurisdictionType, appliesToPurposes, appliesToProfileFlags, sourceIds, isHighRisk, …
 - Enums: `RiskLevel`, `JurisdictionType`, `SourceType`, `SourceStatus`, `ProfileFlag`
 
 ## How to add a new checklist item
@@ -165,11 +165,11 @@ The research workflow used for the 8 MVP states:
 
 ## Roadmap
 
-**Version 2** — Saved checklists in cloud, accounts, multi-device sync, PDF / email export, admin authentication, expanded source verification workflow, real URLs for the remaining 42 states + DC.
+**Version 2** - Saved checklists in cloud, accounts, multi-device sync, PDF / email export, admin authentication, expanded source verification workflow, real URLs for the remaining 42 states + DC.
 
-**Version 3** — Route-based road-trip mode, multi-state trip checklist, local-ordinance warning layer, source update reminders, browser extension for source clipping, public source-contribution review queue.
+**Version 3** - Route-based road-trip mode, multi-state trip checklist, local-ordinance warning layer, source update reminders, browser extension for source clipping, public source-contribution review queue.
 
-**Version 4** — Limited AI-assisted internal admin tools (e.g. summarizing official source pages for human editors). No user-facing legal chatbot.
+**Version 4** - Limited AI-assisted internal admin tools (e.g. summarizing official source pages for human editors). No user-facing legal chatbot.
 
 ## Legal disclaimer
 

@@ -26,7 +26,7 @@ enum States {
     // the URL when the domain is the well-known, long-standing official one.
     //
     // A handful of fields remain "#" placeholders because no canonical URL
-    // could be confirmed in this pass — for example, Hawaii's motor vehicle
+    // could be confirmed in this pass - for example, Hawaii's motor vehicle
     // services are administered at the county level, so there's no single
     // state-wide DMV URL. Each placeholder is documented in `notes`.
 
@@ -131,7 +131,7 @@ enum States {
             taxAgencyUrl: "https://floridarevenue.com",
             housingAgencyUrl: "https://myfloridalegal.com",
             boardOfNursingUrl: "https://floridasnursing.gov",
-            notes: "Driver licensing under FLHSMV. Florida has no personal income tax — floridarevenue.com covers sales / corporate / etc."
+            notes: "Driver licensing under FLHSMV. Florida has no personal income tax - floridarevenue.com covers sales / corporate / etc."
         ),
         Row(
             name: "Georgia", abbreviation: "GA", slug: "georgia",
@@ -149,7 +149,7 @@ enum States {
             taxAgencyUrl: "https://tax.hawaii.gov",
             housingAgencyUrl: "https://ag.hawaii.gov",
             boardOfNursingUrl: "https://cca.hawaii.gov/pvl/boards/nursing",
-            notes: "Motor vehicle services in Hawaii are administered at the county level (Honolulu, Hawaii, Maui, Kauai) — there is no state-wide DMV URL. Nursing under DCCA Professional & Vocational Licensing."
+            notes: "Motor vehicle services in Hawaii are administered at the county level (Honolulu, Hawaii, Maui, Kauai) - there is no state-wide DMV URL. Nursing under DCCA Professional & Vocational Licensing."
         ),
         Row(
             name: "Idaho", abbreviation: "ID", slug: "idaho",
@@ -491,7 +491,7 @@ enum States {
             taxAgencyUrl: "https://www.revenue.wi.gov",
             housingAgencyUrl: "https://www.doj.state.wi.us",
             boardOfNursingUrl: "https://dsps.wi.gov/Pages/Professions/Default.aspx",
-            notes: "Wisconsin nursing licensure under DSPS (Department of Safety and Professional Services); the linked page is the general professions index — navigate to Registered Nurse."
+            notes: "Wisconsin nursing licensure under DSPS (Department of Safety and Professional Services); the linked page is the general professions index - navigate to Registered Nurse."
         ),
         Row(
             name: "Wyoming", abbreviation: "WY", slug: "wyoming",

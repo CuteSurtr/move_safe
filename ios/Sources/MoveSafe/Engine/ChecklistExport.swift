@@ -41,7 +41,7 @@ enum ChecklistExport {
                     out.append("  Sources:")
                     for line in officialUrls { out.append(line) }
                 } else if !entry.sources.isEmpty {
-                    out.append("  Sources: placeholder — verify with the relevant official agency.")
+                    out.append("  Sources: placeholder - verify with the relevant official agency.")
                 }
                 out.append("")
             }

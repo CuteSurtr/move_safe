@@ -9,11 +9,11 @@
     "placeholder": 9
   },
   "notes": [
-    "Verification was done in two passes. First pass (the 'MVP 8'): CA, AZ, TX, NY, MD, PA, IL, VA — all five fields verified.",
-    "Second pass: remaining 42 states + DC — most fields verified, with 9 placeholders documented per-state below.",
+    "Verification was done in two passes. First pass (the 'MVP 8'): CA, AZ, TX, NY, MD, PA, IL, VA - all five fields verified.",
+    "Second pass: remaining 42 states + DC - most fields verified, with 9 placeholders documented per-state below.",
     "Anti-bot protection (Cloudflare, etc.) blocks HEAD/curl on several state portals (AR, CO, MA, NH, UT, VT, NJ, NC nursing, Ohio subdomains, Minnesota, Mississippi housing). Where the canonical domain is well-known (e.g. mass.gov, vermont.gov), the URL is trusted despite curl returning 403/404.",
     "Some state nursing boards operate on non-.gov domains (ncbon.com, ndbon.org, nevadanursingboard.org). These are still the official boards and are included.",
-    "Hawaii motor vehicle services are county-administered — no state-wide DMV URL exists.",
+    "Hawaii motor vehicle services are county-administered - no state-wide DMV URL exists.",
     "Tax fields for Alaska, Florida, Texas, Tennessee, Washington, etc. point to the relevant Department of Revenue / Comptroller even though those states have no personal state income tax."
   ],
   "placeholders": {

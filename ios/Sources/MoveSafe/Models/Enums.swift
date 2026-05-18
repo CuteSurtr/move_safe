@@ -26,7 +26,7 @@ enum RiskLevel: String, CaseIterable, Codable, Identifiable {
         case .high:
             return "May involve penalties, licensing consequences, or major state-by-state differences."
         case .verifySeparately:
-            return "Rules vary substantially. Do not rely on this app — verify directly with official sources."
+            return "Rules vary substantially. Do not rely on this app - verify directly with official sources."
         }
     }
 

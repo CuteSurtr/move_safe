@@ -31,7 +31,7 @@ enum DateUtils {
 
     /// Human-friendly date string (e.g. "Apr 20, 2026"). Returns em-dash when nil.
     static func format(_ input: String?) -> String {
-        guard let date = parse(input) else { return "—" }
+        guard let date = parse(input) else { return "-" }
         let f = DateFormatter()
         f.dateStyle = .medium
         return f.string(from: date)

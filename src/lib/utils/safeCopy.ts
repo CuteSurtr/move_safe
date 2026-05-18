@@ -57,7 +57,7 @@ export const AVOID_PHRASES = [
 ];
 
 // Lightweight dev helper. Returns AVOID_PHRASES present in given text.
-// Not enforced at runtime — intended as a manual review aid during seeding.
+// Not enforced at runtime - intended as a manual review aid during seeding.
 export function findUnsafePhrases(text: string): string[] {
   const lower = text.toLowerCase();
   return AVOID_PHRASES.filter((p) => lower.includes(p));

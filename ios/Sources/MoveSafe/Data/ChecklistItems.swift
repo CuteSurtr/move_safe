@@ -2,7 +2,7 @@ import Foundation
 
 // Items are state-agnostic by default. State-specific items can be added later
 // by setting originStateId / destinationStateId. All language follows the
-// safe-copy rules in SafeCopy.swift — no legal conclusions.
+// safe-copy rules in SafeCopy.swift - no legal conclusions.
 enum ChecklistItems {
     static let all: [ChecklistItem] = [
         // -------- Driver's license --------
@@ -349,7 +349,7 @@ enum ChecklistItems {
             title: "Understand how the destination state defines residency",
             slug: "state-residency-factors",
             categoryId: "cat-state-residency",
-            description: "Residency can affect tuition, taxes, licensing, and benefits, and is determined by the relevant state agency, school, or tax authority — not by MoveSafe.",
+            description: "Residency can affect tuition, taxes, licensing, and benefits, and is determined by the relevant state agency, school, or tax authority - not by MoveSafe.",
             whyItMatters: "Different agencies may apply different residency tests. The same person can be a resident for one purpose and not another.",
             whatToVerify: [
                 "How the destination state defines residency",

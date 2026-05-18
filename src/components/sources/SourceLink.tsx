@@ -40,7 +40,7 @@ export function SourceLink({ source }: Props) {
           </a>
         ) : (
           <span className="font-medium text-slate-500">
-            Placeholder — replace with official source
+            Placeholder - replace with official source
           </span>
         )}
       </div>

@@ -4,7 +4,7 @@ const NOW = "2026-05-17T00:00:00.000Z";
 
 // Items are state-agnostic by default. State-specific items can be added later
 // by setting originStateId / destinationStateId. All language follows the
-// safe-copy rules in src/lib/utils/safeCopy.ts — no legal conclusions.
+// safe-copy rules in src/lib/utils/safeCopy.ts - no legal conclusions.
 export const checklistItems: ChecklistItem[] = [
   // -------- Driver's license --------
   {
@@ -407,7 +407,7 @@ export const checklistItems: ChecklistItem[] = [
     slug: "state-residency-factors",
     categoryId: "cat-state-residency",
     description:
-      "Residency can affect tuition, taxes, licensing, and benefits, and is determined by the relevant state agency, school, or tax authority — not by MoveSafe.",
+      "Residency can affect tuition, taxes, licensing, and benefits, and is determined by the relevant state agency, school, or tax authority - not by MoveSafe.",
     whyItMatters:
       "Different agencies may apply different residency tests. The same person can be a resident for one purpose and not another.",
     whatToVerify: [

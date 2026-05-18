@@ -11,7 +11,7 @@ export function daysSince(date: Date, reference: Date = new Date()): number {
 
 export function formatDate(input?: string): string {
   const d = parseDate(input);
-  if (!d) return "—";
+  if (!d) return "-";
   return d.toLocaleDateString(undefined, {
     year: "numeric",
     month: "short",

@@ -55,12 +55,12 @@ struct BuilderView: View {
         .alert("About Dreamer status", isPresented: $showDreamerAlert) {
             Button("I understand") { }
         } message: {
-            Text("Immigration status — including Dreamer / DACA status — can significantly affect driver's licenses and REAL ID, professional licensure (especially nursing and healthcare), in-state tuition, SSN-related requirements, and state tax filing. Rules vary by state and federal law and change frequently.\n\nMoveSafe is not a substitute for legal counsel. Consider consulting a licensed immigration attorney before relying on any state-by-state summary.")
+            Text("Immigration status - including Dreamer / DACA status - can significantly affect driver's licenses and REAL ID, professional licensure (especially nursing and healthcare), in-state tuition, SSN-related requirements, and state tax filing. Rules vary by state and federal law and change frequently.\n\nMoveSafe is not a substitute for legal counsel. Consider consulting a licensed immigration attorney before relying on any state-by-state summary.")
         }
         .alert("About green card holder status", isPresented: $showGreenCardAlert) {
             Button("I understand") { }
         } message: {
-            Text("Lawful permanent residents (LPRs / green card holders) can face state-by-state variation in driver's license documents and REAL ID, professional licensure (especially nursing — foreign credentials evaluation may apply), Medicaid and state-marketplace eligibility (the federal 5-year bar interacts with state programs), state tax filing, and how DMVs handle voter-registration prompts (LPRs are not eligible to vote in federal or most state elections).\n\nMoveSafe is not a substitute for legal counsel. Consider consulting a licensed immigration attorney for status-affecting questions and a qualified tax professional for cross-state filing.")
+            Text("Lawful permanent residents (LPRs / green card holders) can face state-by-state variation in driver's license documents and REAL ID, professional licensure (especially nursing - foreign credentials evaluation may apply), Medicaid and state-marketplace eligibility (the federal 5-year bar interacts with state programs), state tax filing, and how DMVs handle voter-registration prompts (LPRs are not eligible to vote in federal or most state elections).\n\nMoveSafe is not a substitute for legal counsel. Consider consulting a licensed immigration attorney for status-affecting questions and a qualified tax professional for cross-state filing.")
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

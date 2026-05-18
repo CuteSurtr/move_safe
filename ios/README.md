@@ -42,7 +42,7 @@ ios/
 
 ## Data and connectivity
 
-The app uses **local seed data only** — there is no network call, no backend, and no analytics.
+The app uses **local seed data only** - there is no network call, no backend, and no analytics.
 
 Builder selections and per-item completion are persisted to `UserDefaults` so they survive app relaunch. Keys live in `Sources/MoveSafe/Engine/PersistenceKeys.swift`. The user can wipe selections via the Builder's overflow menu ("Reset all selections") and can wipe item-completion progress via the "Reset progress" button on the Results screen.
 
@@ -60,7 +60,7 @@ The seed in `Sources/MoveSafe/Data/` covers all 50 US states + DC and matches th
 ## Notes for editors
 
 - All on-screen copy must follow the safe-copy rules. See `Sources/MoveSafe/Utils/SafeCopy.swift` for the allowed and avoided phrases.
-- The disclaimer banner appears on every screen — do not remove.
+- The disclaimer banner appears on every screen - do not remove.
 - High-risk categories (firearms / cannabis / controlled substances / prescription transport) get "Do not assume" language and never receive a summary. They only direct users to official sources.
 - The iOS codebase is intentionally separate from the web codebase (`../src/`). When updating seed data, update both.
 

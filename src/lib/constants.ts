@@ -18,7 +18,7 @@ export const riskDescriptions: Record<RiskLevel, string> = {
   MEDIUM: "Can cause inconvenience, fees, or compliance problems if ignored.",
   HIGH: "May involve penalties, licensing consequences, or major state-by-state differences.",
   VERIFY_SEPARATELY:
-    "Rules vary substantially. Do not rely on this app — verify directly with official sources.",
+    "Rules vary substantially. Do not rely on this app - verify directly with official sources.",
 };
 
 export const riskOrder: RiskLevel[] = [

@@ -43,7 +43,7 @@ struct SourceLink: View {
                         .fontWeight(.medium)
                     }
                 } else {
-                    Text("Placeholder — replace with official source")
+                    Text("Placeholder - replace with official source")
                         .font(.caption)
                         .fontWeight(.medium)
                         .foregroundStyle(.secondary)

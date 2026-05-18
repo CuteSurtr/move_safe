@@ -63,7 +63,7 @@ enum ChecklistEngine {
         // Attach sources with computed staleness, resolving any state-bound URLs
         // against the origin / destination states. When a binding resolves to a
         // real state URL (i.e. the state had a non-placeholder value for that
-        // field), upgrade the source status to CURRENT — it was verified during
+        // field), upgrade the source status to CURRENT - it was verified during
         // the research run that populated those URLs.
         let withSources: [ChecklistItemWithSources] = filtered.map { item in
             let attached = item.sourceIds
@@ -138,7 +138,7 @@ enum ChecklistEngine {
 
         if input.originStateId == input.destinationStateId {
             warnings.insert(
-                "Origin and destination are the same. MoveSafe is designed for state-to-state moves — some items may not apply.",
+                "Origin and destination are the same. MoveSafe is designed for state-to-state moves - some items may not apply.",
                 at: 0
             )
         }

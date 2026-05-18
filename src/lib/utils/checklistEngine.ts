@@ -146,7 +146,7 @@ export function generateChecklist(
 
   if (input.originStateId === input.destinationStateId) {
     warnings.unshift(
-      "Origin and destination are the same. MoveSafe is designed for state-to-state moves — some items may not apply."
+      "Origin and destination are the same. MoveSafe is designed for state-to-state moves - some items may not apply."
     );
   }
 

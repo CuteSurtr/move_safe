@@ -26,7 +26,7 @@ vite.config.d.ts
 .vscode
 *.swp
 
-# Xcode (iOS project — project.yml is the canonical source, .xcodeproj is generated)
+# Xcode (iOS project - project.yml is the canonical source, .xcodeproj is generated)
 ios/MoveSafe.xcodeproj
 ios/build
 ios/DerivedData
