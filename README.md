@@ -26,12 +26,30 @@ The example below is California → Maryland for nursing school.
   <img src="docs/screenshots/06-visa-alert.png" alt="Nonimmigrant visa holder status acknowledgment alert" width="260">
 </p>
 
-**Spanish localization (es-419).** The iOS app is fully localized to neutral US Spanish. It follows the device language by default and offers an in-app override in Settings ("Auto-detected" / "English" / "Español"). All UI chrome, the 49 checklist items, 92 source titles, 13 categories, 10 purposes, enum labels, disclaimers, engine warnings, and the share-sheet export honor the active language. US state names stay in English (proper nouns) and so do US agency abbreviations (USCIS, IRS, SEVIS, etc.). The same forbidden-phrase CI lint runs in both English and Spanish.
+**Localization.** The iOS app ships with full translations of all 882 user-facing strings in seven languages, plus stub tables (English fallback) for 22 additional languages that are wired through the same runtime and can be filled in as translation work proceeds.
+
+| Locale | Coverage | Settings label |
+|---|---|---|
+| English (en) | source | English |
+| Spanish (es-419) | full | Español |
+| Korean (ko) | full | 한국어 |
+| Japanese (ja) | full | 日本語 |
+| Simplified Chinese (zh-Hans) | full | 简体中文 |
+| Traditional Chinese (zh-Hant) | full | 繁體中文 |
+| Wu Chinese (wuu) | full, Wu vocab in Simplified script | 吴语 |
+| German (de) | full | Deutsch |
+| Cantonese / Yue (yue), Hakka (hak), Min Nan (nan), Xiang (hsn), Tagalog, Vietnamese, French, Russian, Portuguese, Afrikaans, Somali, Farsi | stub tables (English fallback) | shown in picker |
+
+Coverage in a "full" locale spans every user-facing string: UI chrome, the 49 checklist items × 7 fields each, 92 source titles + agency names + notes, 13 categories, 10 purposes, all enum labels (RiskLevel, JurisdictionType, SourceType, SourceStatus, ProfileFlag), the four Disclaimers, the engine-generated warnings, and the share-sheet plain-text export. US state names stay in English (proper nouns / identifiers) and so do US-agency abbreviations (USCIS, IRS, SEVIS, REAL ID, DSO, OPT, LCA, etc.), consistent with how those terms appear on the official agency pages MoveSafe links to.
+
+Language selection is auto-detected from the device locale (zh-Hans vs zh-Hant resolved by `Locale.script` with region fallback) and can be overridden in Settings (gear icon, top-right on Landing). Wu Chinese has no native iOS locale tag and is selected manually.
+
+The safe-copy CI lint runs in every supported language with a per-language forbidden-cognate regex - so a translation that introduces "illegal" / "permitted" / "prohibited" / "guaranteed" / "avoid penalties" (or their cognates in any of the seven full-coverage languages) fails the build.
 
 <p align="center">
-  <img src="docs/screenshots/es/01-landing.png" alt="Pantalla de inicio en español" width="260">
-  <img src="docs/screenshots/es/03-results.png" alt="Pantalla de resultados en español" width="260">
-  <img src="docs/screenshots/es/06-visa-alert.png" alt="Aviso de estatus de visa en español" width="260">
+  <img src="docs/screenshots/es/01-landing.png" alt="Spanish landing screen" width="220">
+  <img src="docs/screenshots/es/03-results.png" alt="Spanish results screen" width="220">
+  <img src="docs/screenshots/es/06-visa-alert.png" alt="Spanish visa-holder alert" width="220">
 </p>
 
 ## What MoveSafe is

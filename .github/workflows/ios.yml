@@ -122,40 +122,50 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fail if iOS sources contain forbidden phrases (English + Spanish)
+      - name: Fail if iOS sources contain forbidden phrases (all supported languages)
         run: |
           # The product's safety philosophy forbids legal-conclusion language
           # in user-facing copy. This lint enforces a high-confidence subset
           # of the forbidden phrases listed in
-          # ios/Sources/MoveSafe/Utils/SafeCopy.swift. We scope to seed data,
-          # views, and translation tables (which carry user-facing strings),
-          # and exclude SafeCopy.swift itself (it documents the avoid list
-          # by design).
+          # ios/Sources/MoveSafe/Utils/SafeCopy.swift, in each supported
+          # language. Scoped to seed data, views, and translation tables;
+          # excludes SafeCopy.swift itself (it documents the avoid list).
           #
           # Skipped from the EN regex: "you can" / "you cannot" -- both have
-          # legitimate UX hint uses (e.g., "you can change these later") that
-          # would false-positive.
-          #
-          # Spanish equivalents are tuned to the same intent: avoid words that
-          # imply a legal conclusion. "puedes/no puedes" intentionally excluded
-          # for the same UX-hint reason as the English "you can".
+          # legitimate UX hint uses ("you can change these later") that would
+          # false-positive. Same reasoning applies to second-person familiar
+          # forms ("puedes", etc.) in other languages.
           EN='\b(illegal|permitted|prohibited|guaranteed)\b|avoid penalties'
           ES='\b(ilegal|permitido|prohibido|garantizado)\b|para evitar (sanciones|multas)'
-          PHRASES="$EN|$ES"
+          # Korean: 불법(illegal) | 허용된(permitted) | 금지된(prohibited)
+          #        | 보장된/보장합니다(guaranteed) | 처벌을 피하기(avoid penalties)
+          KO='(불법|허용된|허용됩니다|금지된|금지됩니다|보장된|보장합니다|처벌(을|이)?[[:space:]]*피하)'
+          # Japanese: 違法 | 許可された/認められている | 禁止された/禁止されている
+          #          | 保証された/確約された | 罰則を回避/罰則を避ける/罰金を避ける
+          JA='(違法|許可された|認められている|禁止された|禁止されている|保証された|確約された|罰則を回避|罰則を避け|罰金を避け)'
+          # Simplified Chinese: 违法 | 允许的 | 禁止的 | 保证的 | 避免处罚/避免罚款
+          ZH_HANS='(违法|允许的|禁止的|保证的|避免处罚|避免罚款)'
+          # Traditional Chinese: equivalent cognates in 繁體
+          ZH_HANT='(違法|允許的|禁止的|保證的|避免處罰|避免罰款)'
+          PHRASES="$EN|$ES|$KO|$JA|$ZH_HANS|$ZH_HANT"
           if MATCHES=$(git grep -nEiI -- "$PHRASES" \
                 ios/Sources/MoveSafe/Data \
                 ios/Sources/MoveSafe/Views \
                 ios/Sources/MoveSafe/Localization \
                 ':!ios/Sources/MoveSafe/Utils/SafeCopy.swift'); then
-            echo "::error::Forbidden safe-copy phrases found in iOS sources (English or Spanish):"
+            echo "::error::Forbidden safe-copy phrases found in iOS sources:"
             printf '%s\n' "$MATCHES"
             echo ""
-            echo "If a match is a legitimate use, rephrase using 'verify' / 'check' /"
-            echo "'may apply' / 'rules differ' / 'do not assume' (or their Spanish equivalents:"
-            echo "'verificar' / 'consultar' / 'puede aplicar' / 'las normas difieren' / 'no asuma')."
+            echo "If a match is legitimate, rephrase using verify-style language:"
+            echo "  EN: verify / check / may apply / rules differ / do not assume"
+            echo "  ES: verificar / consultar / puede aplicar / las normas difieren / no asuma"
+            echo "  KO: 확인 / 다를 수 있습니다 / 적용될 수 있습니다 / 가정하지 마십시오"
+            echo "  JA: 確認 / 異なる場合があります / 該当する場合があります / 想定しないでください"
+            echo "  ZH-Hans: 核实 / 可能不同 / 可能适用 / 请勿假设"
+            echo "  ZH-Hant: 核實 / 可能不同 / 可能適用 / 請勿假設"
             exit 1
           fi
-          echo "OK: no forbidden safe-copy phrases in English or Spanish."
+          echo "OK: no forbidden safe-copy phrases in any supported language."
 
   schema-integrity:
     name: Schema integrity (iOS seed data)

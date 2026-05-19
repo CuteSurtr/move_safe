@@ -33,17 +33,25 @@ struct ContentView: View {
     /// `--screenshot-*` argument. Used by tooling that captures simulator
     /// screenshots for the README - no effect under normal launch.
     ///
-    /// `--screenshot-lang-es` (combinable with the screen flags) forces the
-    /// app to render in Spanish regardless of device locale, so screenshot
-    /// runs are reproducible.
+    /// `--screenshot-lang-<code>` (combinable with the screen flags) forces
+    /// the app to render in that language regardless of device locale, so
+    /// screenshot runs are reproducible. Codes: `en`, `es`, `ko`, `ja`,
+    /// `zh-hans`, `zh-hant`, `wuu`.
     private func applyScreenshotLaunchArgs() {
         let args = ProcessInfo.processInfo.arguments
-        if args.contains("--screenshot-lang-es") {
-            localeStore.preference = .override(.spanish)
-            L.currentLanguage = .spanish
-        } else if args.contains("--screenshot-lang-en") {
-            localeStore.preference = .override(.english)
-            L.currentLanguage = .english
+        let langMap: [(String, AppLanguage)] = [
+            ("--screenshot-lang-en", .english),
+            ("--screenshot-lang-es", .spanish),
+            ("--screenshot-lang-ko", .korean),
+            ("--screenshot-lang-ja", .japanese),
+            ("--screenshot-lang-zh-hans", .simplifiedChinese),
+            ("--screenshot-lang-zh-hant", .traditionalChinese),
+            ("--screenshot-lang-wuu", .wuChinese),
+        ]
+        for (flag, lang) in langMap where args.contains(flag) {
+            localeStore.preference = .override(lang)
+            L.currentLanguage = lang
+            break
         }
         if args.contains("--screenshot-results") {
             input.loadExample()

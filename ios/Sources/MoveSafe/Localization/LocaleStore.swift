@@ -2,18 +2,58 @@ import Combine
 import Foundation
 import SwiftUI
 
-/// Two-letter language code the app is currently presenting in.
-/// Limited to the actively-translated set.
+/// Language tag the app is currently presenting in. Tags follow BCP 47:
+/// `en`, `es`, `ko`, `ja`, `zh-Hans` (Simplified), `zh-Hant` (Traditional),
+/// `wuu` (Wu Chinese), plus a handful of other US-immigrant-population
+/// languages. Wu has no native iOS locale, so device auto-detect rarely
+/// picks it; users select it explicitly from Settings.
 enum AppLanguage: String, CaseIterable, Identifiable, Codable {
     case english = "en"
     case spanish = "es"
+    case korean = "ko"
+    case japanese = "ja"
+    case simplifiedChinese = "zh-Hans"
+    case traditionalChinese = "zh-Hant"
+    case wuChinese = "wuu"
+    case cantonese = "yue"
+    case hakka = "hak"
+    case minNan = "nan"
+    case xiang = "hsn"
+    case tagalog = "tl"
+    case vietnamese = "vi"
+    case french = "fr"
+    case russian = "ru"
+    case portuguese = "pt"
+    case german = "de"
+    case afrikaans = "af"
+    case somali = "so"
+    case farsi = "fa"
 
     var id: String { rawValue }
 
+    /// Name shown in the language picker, written in that language.
     var displayName: String {
         switch self {
         case .english: return "English"
         case .spanish: return "Español"
+        case .korean: return "한국어"
+        case .japanese: return "日本語"
+        case .simplifiedChinese: return "简体中文"
+        case .traditionalChinese: return "繁體中文"
+        case .wuChinese: return "吴语"
+        case .cantonese: return "粤语"
+        case .hakka: return "客家话"
+        case .minNan: return "闽南语"
+        case .xiang: return "湘语"
+        case .tagalog: return "Tagalog"
+        case .vietnamese: return "Tiếng Việt"
+        case .french: return "Français"
+        case .russian: return "Русский"
+        case .portuguese: return "Português"
+        case .german: return "Deutsch"
+        case .afrikaans: return "Afrikaans"
+        case .somali: return "Soomaali"
+        case .farsi: return "فارسی"
         }
     }
 }
@@ -65,7 +105,32 @@ final class LocaleStore: ObservableObject {
     }
 
     private static func languageForDevice() -> AppLanguage {
-        let code = Locale.current.language.languageCode?.identifier.lowercased() ?? "en"
+        let lang = Locale.current.language
+        let code = lang.languageCode?.identifier.lowercased() ?? "en"
+        // Chinese needs the script suffix (Hans vs Hant) to disambiguate.
+        // Apple's Locale exposes that via `script` on the language struct.
+        if code == "zh" {
+            let script = lang.script?.identifier.lowercased() ?? ""
+            switch script {
+            case "hant": return .traditionalChinese
+            case "hans": return .simplifiedChinese
+            default:
+                // Fall back to region: TW / HK / MO → Traditional, otherwise Simplified.
+                let region = Locale.current.region?.identifier.uppercased() ?? ""
+                if ["TW", "HK", "MO"].contains(region) {
+                    return .traditionalChinese
+                }
+                return .simplifiedChinese
+            }
+        }
+        // Wu, Cantonese, Hakka, Min Nan, and Xiang have their own BCP 47 codes
+        // but iOS device locale rarely surfaces them - users opt in via the
+        // in-app picker.
+        if code == "wuu" { return .wuChinese }
+        if code == "yue" { return .cantonese }
+        if code == "hak" { return .hakka }
+        if code == "nan" { return .minNan }
+        if code == "hsn" { return .xiang }
         return AppLanguage(rawValue: code) ?? .english
     }
 
