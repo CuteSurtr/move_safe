@@ -37,8 +37,15 @@ The example below is California → Maryland for nursing school.
 | Simplified Chinese (zh-Hans) | full | 简体中文 |
 | Traditional Chinese (zh-Hant) | full | 繁體中文 |
 | Wu Chinese (wuu) | full, Wu vocab in Simplified script | 吴语 |
+| Cantonese / Yue (yue) | full, Yue vocab in Simplified script | 粤语 |
+| Hakka (hak) | full, Hakka vocab in Simplified script | 客家话 |
+| Min Nan / Hokkien (nan) | full, Min Nan vocab in Simplified script | 闽南语 |
+| Xiang Chinese (hsn) | full, Xiang vocab in Simplified script | 湘语 |
 | German (de) | full | Deutsch |
-| Cantonese / Yue (yue), Hakka (hak), Min Nan (nan), Xiang (hsn), Tagalog, Vietnamese, French, Russian, Portuguese, Afrikaans, Somali, Farsi | stub tables (English fallback) | shown in picker |
+| French (fr) | full | Français |
+| Russian (ru) | full | Русский |
+| Somali (so) | full | Soomaali |
+| Tagalog, Vietnamese, Portuguese, Afrikaans, Farsi | stub tables (English fallback); picker exposes them, lookup falls back to English | shown in picker |
 
 Coverage in a "full" locale spans every user-facing string: UI chrome, the 49 checklist items × 7 fields each, 92 source titles + agency names + notes, 13 categories, 10 purposes, all enum labels (RiskLevel, JurisdictionType, SourceType, SourceStatus, ProfileFlag), the four Disclaimers, the engine-generated warnings, and the share-sheet plain-text export. US state names stay in English (proper nouns / identifiers) and so do US-agency abbreviations (USCIS, IRS, SEVIS, REAL ID, DSO, OPT, LCA, etc.), consistent with how those terms appear on the official agency pages MoveSafe links to.
 
