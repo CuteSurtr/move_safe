@@ -44,8 +44,12 @@ The example below is California → Maryland for nursing school.
 | German (de) | full | Deutsch |
 | French (fr) | full | Français |
 | Russian (ru) | full | Русский |
+| Portuguese (pt) | full, Brazilian-leaning, você | Português |
+| Tagalog / Filipino (tl) | full, formal po/opo | Tagalog |
+| Vietnamese (vi) | full, formal quý vị | Tiếng Việt |
+| Afrikaans (af) | full | Afrikaans |
 | Somali (so) | full | Soomaali |
-| Tagalog, Vietnamese, Portuguese, Afrikaans, Farsi | stub tables (English fallback); picker exposes them, lookup falls back to English | shown in picker |
+| Farsi / Persian (fa) | full, formal شما, RTL | فارسی |
 
 Coverage in a "full" locale spans every user-facing string: UI chrome, the 49 checklist items × 7 fields each, 92 source titles + agency names + notes, 13 categories, 10 purposes, all enum labels (RiskLevel, JurisdictionType, SourceType, SourceStatus, ProfileFlag), the four Disclaimers, the engine-generated warnings, and the share-sheet plain-text export. US state names stay in English (proper nouns / identifiers) and so do US-agency abbreviations (USCIS, IRS, SEVIS, REAL ID, DSO, OPT, LCA, etc.), consistent with how those terms appear on the official agency pages MoveSafe links to.
 
